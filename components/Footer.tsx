@@ -4,12 +4,33 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-950 text-slate-300 pt-20 pb-10 border-t border-slate-900" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+    <footer className="bg-slate-950 text-slate-300 relative overflow-hidden" role="contentinfo">
+      {/* Decorative Grid Overlay */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+      
+      {/* Pre-Footer CTA: High Conversion Section */}
+      <div className="relative z-10 border-b border-slate-900">
+        <div className="max-w-7xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="text-center md:text-left">
+            <h2 className="text-3xl font-black text-white tracking-tighter mb-2">Ready for a $7,100 energy rebate?</h2>
+            <p className="text-slate-500 font-bold">Our Mississauga team handles 100% of the paperwork for you.</p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+            <Link to="/rebates" className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all text-center shadow-lg shadow-blue-600/20">
+              Check Eligibility
+            </Link>
+            <a href="tel:4164101744" className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all text-center border border-slate-700">
+              Call Dispatch
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16">
           
           {/* Brand Identity Section */}
-          <div className="space-y-8">
+          <div className="lg:col-span-4 space-y-8">
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-2xl shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-transform group-hover:scale-110">
                 H
@@ -19,77 +40,99 @@ const Footer: React.FC = () => {
                 <p className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold">Depot • GTA Experts</p>
               </div>
             </Link>
-            <p className="text-sm leading-relaxed font-semibold opacity-90 text-slate-400">
-              Serving the Greater Toronto Area with award-winning HVAC solutions for over 20 years. 
-              Trust, Expertise, and Local Care.
+            <p className="text-sm leading-relaxed font-semibold text-slate-400 max-w-sm">
+              The Greater Toronto Area's premier HVAC engineering firm. Specializing in high-efficiency hybrid systems, precision diagnostics, and government rebate maximization for over 20 years.
             </p>
             <div className="flex space-x-3" aria-label="Social Media Links">
-              {['FB', 'IG', 'TW'].map((social) => (
+              {['Facebook', 'Instagram', 'Twitter', 'LinkedIn'].map((social) => (
                 <a 
                   key={social} 
                   href="#" 
-                  className="w-10 h-10 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-center text-[10px] font-black text-slate-400 hover:text-white hover:border-blue-500 hover:bg-blue-600/20 transition-all duration-300"
+                  className="w-10 h-10 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-blue-500 hover:bg-blue-600/20 transition-all duration-300"
                   aria-label={`Follow us on ${social}`}
                 >
-                  {social}
+                  <span className="text-[10px] font-black">{social.substring(0, 2).toUpperCase()}</span>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Services & Support */}
-          <nav aria-label="Support Navigation">
-            <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Support</h3>
-            <ul className="space-y-4 text-[14px] font-bold">
-              <li><Link to="/faq" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">FAQs</Link></li>
-              <li><Link to="/warranty" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Warranty Info</Link></li>
-              <li><Link to="/contact" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Service Request</Link></li>
-              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Rebate Status</Link></li>
+          {/* Quick Links Nav */}
+          <div className="lg:col-span-2">
+            <h3 className="text-white text-[11px] font-black uppercase tracking-[0.25em] mb-8 border-l-2 border-blue-600 pl-4">Services</h3>
+            <ul className="space-y-4 text-sm font-bold">
+              <li><Link to="/services" className="text-slate-400 hover:text-white transition-colors">Hybrid Heat Pumps</Link></li>
+              <li><Link to="/services" className="text-slate-400 hover:text-white transition-colors">AC Installation</Link></li>
+              <li><Link to="/services" className="text-slate-400 hover:text-white transition-colors">Furnace Repair</Link></li>
+              <li><Link to="/services" className="text-slate-400 hover:text-white transition-colors">Duct Cleaning</Link></li>
+              <li><Link to="/rebates" className="text-slate-400 hover:text-white transition-colors">Rebate Center</Link></li>
             </ul>
-          </nav>
+          </div>
 
-          {/* Company & Legal */}
-          <nav aria-label="Legal Navigation">
-            <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Company</h3>
-            <ul className="space-y-4 text-[14px] font-bold">
-              <li><Link to="/about" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">About Us</Link></li>
-              <li><Link to="/privacy" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Terms of Service</Link></li>
-              <li><Link to="/contact" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Carrier Opportunities</Link></li>
+          {/* Support & Company */}
+          <div className="lg:col-span-2">
+            <h3 className="text-white text-[11px] font-black uppercase tracking-[0.25em] mb-8 border-l-2 border-blue-600 pl-4">Resources</h3>
+            <ul className="space-y-4 text-sm font-bold">
+              <li><Link to="/faq" className="text-slate-400 hover:text-white transition-colors">FAQ</Link></li>
+              <li><Link to="/warranty" className="text-slate-400 hover:text-white transition-colors">Warranty</Link></li>
+              <li><Link to="/about" className="text-slate-400 hover:text-white transition-colors">About Legacy</Link></li>
+              <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors">Service Request</Link></li>
+              <li><Link to="/contact" className="text-slate-400 hover:text-white transition-colors">Careers</Link></li>
             </ul>
-          </nav>
+          </div>
 
-          {/* Contact Section Column */}
-          <div className="bg-slate-900/40 p-8 rounded-3xl border border-slate-800 shadow-2xl backdrop-blur-sm">
-            <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-6">Contact Us</h3>
+          {/* Contact & Status Card */}
+          <div className="lg:col-span-4 bg-slate-900/50 p-8 rounded-[32px] border border-slate-800 shadow-2xl backdrop-blur-md">
+            <h3 className="text-white text-[11px] font-black uppercase tracking-[0.25em] mb-6">Mississauga Hub</h3>
             <div className="space-y-6">
               <div>
-                <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Office Location</p>
-                <p className="text-white font-bold text-sm">Mississauga & GTA Office</p>
-              </div>
-              <div>
-                <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Emergency Dispatch</p>
-                <a href="tel:4164101744" className="text-2xl font-black text-white hover:text-blue-500 transition-colors block">
+                <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Direct Emergency Dispatch</p>
+                <a href="tel:4164101744" className="text-3xl font-black text-white hover:text-blue-500 transition-colors block tracking-tighter">
                   (416) 410-1744
                 </a>
               </div>
-              <div className="pt-2">
-                <div className="flex items-center space-x-2 bg-blue-600/10 border border-blue-600/30 px-3 py-1.5 rounded-lg w-fit">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
-                  <span className="text-[10px] text-blue-500 font-black uppercase tracking-widest">AI Triage Active</span>
+              <div className="flex items-center justify-between p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                <div>
+                   <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-0.5">System Health</p>
+                   <p className="text-blue-400 text-xs font-black">AI MONITORING ACTIVE</p>
+                </div>
+                <div className="flex space-x-1">
+                  {[1,2,3].map(i => (
+                    <div key={i} className="w-1 h-3 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}></div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Industry Trust Row */}
+        <div className="mt-20 pt-10 border-t border-slate-900 flex flex-wrap items-center justify-center gap-12 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+           <div className="flex items-center space-x-2">
+             <span className="text-2xl">🛡️</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-white">TSSA Certified</span>
+           </div>
+           <div className="flex items-center space-x-2">
+             <span className="text-2xl">⭐</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-white">BBB A+ Rated</span>
+           </div>
+           <div className="flex items-center space-x-2">
+             <span className="text-2xl">⚡</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-white">EnergyStar Partner</span>
+           </div>
+           <div className="flex items-center space-x-2">
+             <span className="text-2xl">🏫</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-white">HRAI Member</span>
+           </div>
+        </div>
         
         {/* Bottom Bar */}
-        <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center text-[11px] font-black text-slate-500 tracking-wider">
-          <p className="uppercase">© {new Date().getFullYear()} CANADA’S HOME RENOVATION DEPOT. ALL RIGHTS RESERVED.</p>
-          <div className="flex items-center space-x-6 mt-4 md:mt-0 uppercase">
-            <span className="hover:text-slate-300 transition-colors cursor-default">Licensed & Insured HVAC Contractor</span>
-            <span className="w-1 h-1 bg-slate-800 rounded-full hidden md:block"></span>
-            <Link to="/privacy" className="hover:text-white transition-colors">Legal Notices</Link>
+        <div className="mt-16 pt-10 border-t border-slate-900/50 flex flex-col md:flex-row justify-between items-center text-[10px] font-black text-slate-600 tracking-[0.1em]">
+          <p className="uppercase mb-4 md:mb-0">© {new Date().getFullYear()} CANADA’S HOME RENOVATION DEPOT. MASTER HVAC LICENSE #763321.</p>
+          <div className="flex items-center space-x-8 uppercase">
+            <Link to="/privacy" className="hover:text-blue-500 transition-colors">Privacy</Link>
+            <Link to="/terms" className="hover:text-blue-500 transition-colors">Terms</Link>
+            <Link to="/warranty" className="hover:text-blue-500 transition-colors">Warranty Policy</Link>
           </div>
         </div>
       </div>
