@@ -1,6 +1,6 @@
 {
   "name": "Canada’s Home Renovation Depot",
-  "description": "Premium HVAC services for the GTA and Mississauga area, featuring high-authority design, rebate estimators, and real-time emergency monitoring.",
+  "description": "Premium HVAC services for the GTA and Oakville area, featuring high-authority design, rebate estimators, and real-time emergency monitoring.",
   "requestFramePermissions": [
     "geolocation"
   ]

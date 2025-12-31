@@ -42,16 +42,16 @@ const Contact: React.FC = () => {
   const [dispatchedCrews, setDispatchedCrews] = useState(6);
   const [systemStatus, setSystemStatus] = useState('System Scanning...');
   const [recentEvents, setRecentEvents] = useState<DispatchEvent[]>([
-    { id: 1, location: 'Port Credit', type: 'Furnace Repair', time: '14:22', status: 'On-Site', priority: 2 },
-    { id: 2, location: 'Erin Mills', type: 'Emergency No Heat', time: '14:18', status: 'Dispatched', priority: 1, eta: 12 },
-    { id: 3, location: 'Cooksville', type: 'Gas Leak Detection', time: '14:10', status: 'Completed', priority: 1 },
+    { id: 1, location: 'Glen Abbey', type: 'Furnace Repair', time: '14:22', status: 'On-Site', priority: 2 },
+    { id: 2, location: 'Clearview', type: 'Emergency No Heat', time: '14:18', status: 'Dispatched', priority: 1, eta: 12 },
+    { id: 3, location: 'Bronte', type: 'Gas Leak Detection', time: '14:10', status: 'Completed', priority: 1 },
   ]);
 
   // Simulate real-time data fluctuations and new events
   useEffect(() => {
-    const locations = ['Streetsville', 'Meadowvale', 'Churchill Meadows', 'Lakeview', 'Mineola', 'Sheridan'];
+    const locations = ['Joshua Creek', 'Ford', 'Morrison', 'Wedgewood Creek', 'Falgarwood', 'Iroquois Ridge'];
     const types = ['Emergency No Heat', 'AC Failure', 'Furnace Triage', 'Rebate Audit', 'Maintenance'];
-    const statusCycle = ['Scanning Mississauga South...', 'Analyzing Load Balance...', 'GPS Sync Active...', 'Optimizing Crew Routes...'];
+    const statusCycle = ['Scanning Oakville West...', 'Analyzing Load Balance...', 'GPS Sync Active...', 'Optimizing Crew Routes...'];
     
     let statusIdx = 0;
 
@@ -171,8 +171,6 @@ const Contact: React.FC = () => {
     }, 1500);
   };
 
-  const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=Mississauga,ON+Canada&zoom=10`;
-
   const services = [
     { id: 'furnace', label: 'Furnace Repair/Install', icon: '🔥' },
     { id: 'ac', label: 'AC Service/Install', icon: '❄️' },
@@ -197,7 +195,7 @@ const Contact: React.FC = () => {
           <p className="text-gray-500 max-w-2xl mx-auto">
             {isEmergency && step === 3 
               ? 'Critical HVAC failure detected. Enter your location details below for immediate response from our closest TSSA technician.' 
-              : 'Our Mississauga dispatch center is ready to help. Select your service type to begin.'}
+              : 'Our Oakville dispatch center is ready to help. Select your service type to begin.'}
           </p>
         </div>
 
@@ -352,6 +350,9 @@ const Contact: React.FC = () => {
                           {errors.phone && <p className="mt-2 text-xs font-bold text-red-500">{errors.phone}</p>}
                         </div>
                       </div>
+                      <div className="mb-6">
+                        <p className="text-sm font-bold text-gray-700 mb-2">Service Location: <span className="text-blue-600">Oakville, ON L6M 4P2</span></p>
+                      </div>
                       <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl h-24 focus:ring-2 focus:ring-blue-600 outline-none resize-none" placeholder={isEmergency ? "e.g., Furnace is making loud noise and blowing cold air..." : "Additional details..."}></textarea>
                       <div className="mt-12 flex justify-between items-center">
                         <button type="button" onClick={prevStep} className="text-gray-500 font-bold hover:text-gray-700">Back</button>
@@ -368,9 +369,8 @@ const Contact: React.FC = () => {
 
           {/* Contact Sidebar / Monitoring Dashboard */}
           <div className="space-y-8">
-            {/* Enhanced Real-Time Emergency Operations Dashboard */}
+            {/* Real-Time Emergency Operations Dashboard */}
             <div className="bg-slate-900 text-white rounded-3xl shadow-2xl border border-slate-800 overflow-hidden relative">
-              {/* Critical Alert Banner - Enhanced with high-intensity flash */}
               {recentEvents.some(e => e.priority === 1 && e.status !== 'Completed') && (
                 <div className="bg-red-600 border-b border-red-500 px-6 py-2 flex items-center justify-center space-x-2 animate-[critical-flash_0.5s_infinite_alternate] shadow-[0_0_20px_rgba(220,38,38,0.5)]">
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">CRITICAL PRIORITY DISPATCH ACTIVE</span>
@@ -381,7 +381,7 @@ const Contact: React.FC = () => {
                 <div className="flex items-center space-x-3">
                   <div className="w-2.5 h-2.5 bg-red-600 rounded-full animate-ping"></div>
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] block text-slate-400">Live Ops Center</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] block text-slate-400">Oakville Ops Center</span>
                     <span className="text-[9px] font-mono text-slate-600">DISPATCH_V4.2.0</span>
                   </div>
                 </div>
@@ -391,35 +391,30 @@ const Contact: React.FC = () => {
               </div>
               
               <div className="p-6">
-                {/* Stats Counters */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/30 group hover:border-blue-500/50 transition-colors">
+                  <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/30">
                     <p className="text-[9px] text-slate-500 font-black uppercase tracking-wider mb-1">Crews Active</p>
                     <div className="flex items-baseline space-x-2">
-                       <span className="text-3xl font-black text-white" role="status" aria-live="polite">{activeCrews}</span>
+                       <span className="text-3xl font-black text-white">{activeCrews}</span>
                        <span className="text-[10px] text-green-500 font-bold bg-green-500/10 px-1.5 py-0.5 rounded">ONLINE</span>
                     </div>
                   </div>
-                  <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/30 group hover:border-red-500/50 transition-colors">
+                  <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/30">
                     <p className="text-[9px] text-slate-500 font-black uppercase tracking-wider mb-1">On Dispatch</p>
                     <div className="flex items-baseline space-x-2">
-                       <span className="text-3xl font-black text-red-500" role="status" aria-live="polite">{dispatchedCrews}</span>
+                       <span className="text-3xl font-black text-red-500">{dispatchedCrews}</span>
                        <span className="text-[10px] text-red-400 font-bold bg-red-500/10 px-1.5 py-0.5 rounded animate-pulse">BUSY</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Radar Scanning Icon Component */}
                 <div className="bg-slate-800/20 rounded-2xl p-6 border border-slate-700/20 mb-6 flex items-center space-x-6">
                   <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
-                    {/* Pulsing rings */}
                     <div className="absolute inset-0 rounded-full bg-blue-500/10 animate-ping"></div>
                     <div className="absolute inset-2 rounded-full bg-blue-500/20 animate-pulse"></div>
-                    {/* Rotating Radar Sweep */}
                     <div className="absolute inset-0 rounded-full border border-slate-700 overflow-hidden">
                       <div className="absolute top-1/2 left-1/2 w-full h-[1px] bg-gradient-to-r from-transparent to-blue-500/60 origin-left animate-[radar-sweep_4s_linear_infinite]"></div>
                     </div>
-                    {/* Center point */}
                     <div className="w-2 h-2 bg-blue-500 rounded-full z-10 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
                   </div>
                   <div>
@@ -428,55 +423,25 @@ const Contact: React.FC = () => {
                       <span className="text-[9px] font-bold text-blue-400">LIVE</span>
                     </div>
                     <p className="text-xs font-mono text-blue-100/80 uppercase tracking-tighter truncate max-w-[140px]">{systemStatus}</p>
-                    <div className="flex space-x-1 mt-2">
-                      {[1,2,3,4,5,6].map(i => (
-                        <div key={i} className={`h-1 w-2 rounded-full bg-blue-600/30 overflow-hidden`}>
-                          <div className={`h-full bg-blue-400 animate-[pulse_1s_infinite]`} style={{ animationDelay: `${i * 0.1}s` }}></div>
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </div>
 
-                {/* Enhanced Event Feed with Dynamic ETA */}
                 <div>
-                   <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Real-Time Activity Log</h4>
-                   </div>
-                   
-                   <div className="space-y-2 max-h-[220px] overflow-hidden" role="log" aria-live="polite">
+                   <h4 className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-4">Real-Time Activity Log</h4>
+                   <div className="space-y-2 max-h-[220px] overflow-hidden">
                       {recentEvents.map(event => (
-                        <div key={event.id} className={`flex items-start justify-between p-3 rounded-xl transition-all duration-500 border border-transparent ${
+                        <div key={event.id} className={`flex items-start justify-between p-3 rounded-xl border border-transparent ${
                           event.priority === 1 ? 'bg-red-950/20 border-red-900/30' : 'bg-slate-800/30'
                         }`}>
-                           <div className="flex space-x-3">
-                              <div className="flex flex-col items-center pt-1">
-                                <span className={`w-1.5 h-1.5 rounded-full ${
-                                  event.priority === 1 ? 'bg-red-500 animate-pulse' : 'bg-blue-400'
-                                }`}></span>
-                              </div>
+                           <div className="flex space-x-3 overflow-hidden">
+                              <div className={`w-1.5 h-1.5 rounded-full mt-1.5 shrink-0 ${event.priority === 1 ? 'bg-red-500 animate-pulse' : 'bg-blue-400'}`}></div>
                               <div className="overflow-hidden">
-                                 <div className="flex items-center space-x-2 mb-0.5">
-                                    <p className="font-bold text-[11px] text-slate-200 truncate">{event.type}</p>
-                                    {event.priority === 1 && (
-                                      <span className="text-[8px] font-black bg-red-600 text-white px-1.5 rounded-sm animate-pulse shrink-0">PRIORITY 1</span>
-                                    )}
-                                 </div>
-                                 <div className="flex items-center space-x-2">
-                                    <p className="text-slate-500 text-[10px] tracking-tight">{event.location}</p>
-                                    {event.eta !== undefined && (
-                                      <span className="text-[10px] font-bold text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded-md flex items-center space-x-1">
-                                        <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-                                        <span>ETA: {event.eta}m</span>
-                                      </span>
-                                    )}
-                                 </div>
+                                 <p className="font-bold text-[11px] text-slate-200 truncate">{event.type}</p>
+                                 <p className="text-slate-500 text-[10px] tracking-tight">{event.location}</p>
                               </div>
                            </div>
                            <div className="text-right shrink-0">
-                              <p className={`text-[10px] font-black ${
-                                event.status === 'Dispatched' || event.status === 'En-Route' ? 'text-red-400' : 'text-blue-400'
-                              }`}>{event.status.toUpperCase()}</p>
+                              <p className={`text-[10px] font-black ${event.status === 'Dispatched' || event.status === 'En-Route' ? 'text-red-400' : 'text-blue-400'}`}>{event.status.toUpperCase()}</p>
                               <p className="text-slate-600 font-mono text-[9px] mt-0.5">{event.time}</p>
                            </div>
                         </div>
@@ -488,13 +453,13 @@ const Contact: React.FC = () => {
 
             <div className="bg-blue-600 text-white p-10 rounded-3xl shadow-xl relative overflow-hidden group">
               <h3 className="text-2xl font-bold mb-4">Direct Priority Line</h3>
-              <p className="mb-8 text-blue-100 text-sm">Bypass the digital queue for active leaks or complete furnace failures.</p>
+              <p className="mb-8 text-blue-100 text-sm">Bypass the digital queue for active leaks or complete furnace failures in Oakville.</p>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <span className="text-xl shrink-0">📞</span>
                   <div>
                     <p className="font-bold">24/7 Command Center</p>
-                    <a href="tel:4164101744" className="text-white text-3xl font-black hover:scale-105 transition-transform inline-block focus:outline-none focus:ring-2 focus:ring-white rounded-lg">
+                    <a href="tel:4164101744" className="text-white text-3xl font-black hover:scale-105 transition-transform inline-block">
                       (416) 410-1744
                     </a>
                   </div>
@@ -502,13 +467,12 @@ const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Google Maps Embed Component */}
             <div className="bg-white p-2 rounded-3xl shadow-xl border border-gray-100 h-[250px] overflow-hidden relative group">
               <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-100 shadow-md">
-                 <p className="text-blue-900 font-black uppercase tracking-widest text-[10px]">Service Area: Mississauga & South GTA</p>
+                 <p className="text-blue-900 font-black uppercase tracking-widest text-[10px]">Service Area: Oakville & West GTA</p>
               </div>
               <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden">
-                <img src="https://picsum.photos/seed/mississauga/800/400" className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none grayscale" alt="Map preview" />
+                <img src="https://picsum.photos/seed/oakville/800/400" className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none grayscale" alt="Map preview" />
                 <div className="text-4xl mb-4 opacity-50 relative z-10">📍</div>
                 <h4 className="font-bold text-gray-400 mb-2 relative z-10">Coverage Map</h4>
               </div>
@@ -518,8 +482,8 @@ const Contact: React.FC = () => {
       </div>
       <style>{`
         @keyframes radar-sweep {
-          from { transform: rotate(0deg) translateX(0); }
-          to { transform: rotate(360deg) translateX(0); }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         @keyframes critical-flash {
           from { background-color: rgb(220 38 38); }

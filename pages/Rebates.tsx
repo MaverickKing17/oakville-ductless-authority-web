@@ -50,7 +50,7 @@ const Rebates: React.FC = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 underline decoration-blue-500/30 underline-offset-8">Optimizer</span>
               </h1>
               <p className="text-xl text-slate-400 font-medium leading-relaxed mb-10">
-                Mississauga's elite portal for the $7,100 HER+ Grant. Our AI audit predicts your savings before you even book the first NRCAN assessment.
+                Oakville's elite portal for the $7,100 HER+ Grant. Our AI audit predicts your savings before you even book the first NRCAN assessment.
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                 <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl flex items-center space-x-3">
@@ -99,7 +99,7 @@ const Rebates: React.FC = () => {
               {/* Home Size Input */}
               <div>
                 <div className="flex justify-between mb-3">
-                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">GTA Home Size</label>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Oakville Home Size</label>
                   <span className="text-sm font-black text-blue-600">{homeSize} sq ft</span>
                 </div>
                 <input 

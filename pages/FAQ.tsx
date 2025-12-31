@@ -4,7 +4,7 @@ import React from 'react';
 const faqItems = [
   {
     q: "How long does it take for a technician to arrive in an emergency?",
-    a: "Our goal for Mississauga and Brampton residents is a 2-hour response time. During extreme cold weather warnings, we prioritize 'No Heat' situations for vulnerable households."
+    a: "Our goal for Oakville and Burlington residents is a 2-hour response time. During extreme cold weather warnings, we prioritize 'No Heat' situations for vulnerable households."
   },
   {
     q: "What is the Enbridge $7,100 Rebate program?",
@@ -15,7 +15,7 @@ const faqItems = [
     a: "Yes. Every technician at Canada's Home Renovation Depot holds valid TSSA gas licenses. We are a fully insured and bonded HVAC contractor."
   },
   {
-    q: "Do I really need a heat pump in Toronto?",
+    q: "Do I really need a heat pump in Oakville?",
     a: "Yes. Modern cold-climate heat pumps are designed for Ontario winters. They operate efficiently down to -25°C and can save you up to 50% on heating costs compared to traditional systems."
   },
   {
@@ -47,7 +47,7 @@ const FAQ: React.FC = () => {
 
         <div className="mt-20 p-10 bg-blue-600 rounded-3xl text-white text-center">
           <h2 className="text-2xl font-bold mb-4">Still have questions?</h2>
-          <p className="mb-8 opacity-90">Our AI assistant Marc is available 24/7, or you can talk to a human expert.</p>
+          <p className="mb-8 opacity-90">Our AI assistant Marc is available 24/7, or you can talk to a human expert at our Oakville center.</p>
           <a href="tel:4164101744" className="bg-white text-blue-600 px-8 py-3 rounded-xl font-black inline-block">Call (416) 410-1744</a>
         </div>
       </div>

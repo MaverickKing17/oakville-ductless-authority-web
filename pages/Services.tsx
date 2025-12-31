@@ -17,12 +17,12 @@ const Services: React.FC = () => {
             SOLUTIONS
           </h1>
           <p className="text-xl text-slate-500 font-medium max-w-2xl leading-relaxed">
-            From cold-climate heat pumps to precision gas diagnostics, we provide the highest technical standard in the Greater Toronto Area.
+            From cold-climate heat pumps to precision gas diagnostics, we provide the highest technical standard in Oakville and the Greater Toronto Area.
           </p>
         </div>
       </section>
 
-      {/* EMERGENCY RESPONSE HUB: AS SEEN IN SCREENSHOT */}
+      {/* EMERGENCY RESPONSE HUB */}
       <section className="max-w-7xl mx-auto px-4 pb-32">
         <div className="relative bg-[#050B1C] rounded-[48px] p-8 md:p-16 overflow-hidden shadow-2xl border border-white/5">
           {/* Subtle Background Glows */}
@@ -42,7 +42,7 @@ const Services: React.FC = () => {
               </h2>
               
               <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-lg">
-                Facing a complete heating or cooling failure? Our Mississauga-based rapid dispatch team targets a sub-2 hour arrival for high-priority outages.
+                Facing a complete heating or cooling failure? Our Oakville-based rapid dispatch team targets a sub-2 hour arrival for high-priority outages in the Halton and Peel regions.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-5">
@@ -65,9 +65,9 @@ const Services: React.FC = () => {
                
                <div className="space-y-5 relative">
                   {[
-                    { loc: 'Sherway Gardens', type: 'AC Diagnostic', status: 'En-Route' },
-                    { loc: 'Streetsville', type: 'Furnace Re-Ignite', status: 'In-Progress' },
-                    { loc: 'Oakville', type: 'Heat Pump Config', status: 'Priority' }
+                    { loc: 'Glen Abbey', type: 'AC Diagnostic', status: 'En-Route' },
+                    { loc: 'Joshua Creek', type: 'Furnace Re-Ignite', status: 'In-Progress' },
+                    { loc: 'Burlington', type: 'Heat Pump Config', status: 'Priority' }
                   ].map((inc, i) => (
                     <div key={i} className="bg-slate-950/50 border border-white/5 p-5 rounded-2xl flex items-center justify-between group/card hover:bg-slate-900 transition-colors">
                       <div>
@@ -97,7 +97,7 @@ const Services: React.FC = () => {
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
            {[
              { title: 'Cold-Climate Heat Pumps', desc: 'Hybrid systems engineered for Ontario winters down to -30°C. Authorized Enbridge provider.' },
-             { title: 'Ductless Mini-Splits', desc: 'Precision zoning for modern condos and heritage homes in the GTA.' },
+             { title: 'Ductless Mini-Splits', desc: 'Precision zoning for modern condos and heritage homes in Oakville.' },
              { title: 'Indoor Air Quality', desc: 'Hospital-grade HEPA & UV-C sterilization for comprehensive protection.' },
              { title: 'Commercial Service', desc: 'Rapid response for multi-unit dwellings and light commercial buildings.' }
            ].map((s, i) => (

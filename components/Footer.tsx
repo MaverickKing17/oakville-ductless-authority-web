@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
                 Ready for a <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">$7,100 Energy Rebate?</span>
               </h2>
               <p className="text-lg md:text-xl text-slate-400 font-bold max-w-2xl">
-                Mississauga homeowners are saving <span className="text-white">40% on annual heating costs</span>. Our elite dispatch team handles 100% of the government paperwork.
+                Oakville homeowners are saving <span className="text-white">40% on annual heating costs</span>. Our elite dispatch team handles 100% of the government paperwork for you.
               </p>
             </div>
             
@@ -58,11 +58,11 @@ const Footer: React.FC = () => {
               </div>
               <div>
                 <h2 className="text-xl font-black text-white leading-tight tracking-tight">Home Renovation</h2>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold">Depot • GTA Experts</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold">Depot • Oakville Experts</p>
               </div>
             </Link>
             <p className="text-sm leading-relaxed font-semibold text-slate-400 max-w-sm">
-              The Greater Toronto Area's premier HVAC engineering firm. Specializing in high-efficiency hybrid systems, precision diagnostics, and government rebate maximization for over 20 years.
+              The Greater Toronto Area's premier HVAC engineering firm. Specializing in high-efficiency hybrid systems, precision diagnostics, and government rebate maximization for over 20 years. Based in Oakville, Ontario.
             </p>
             <div className="flex space-x-3" aria-label="Social Media Links">
               {['Facebook', 'Instagram', 'Twitter', 'LinkedIn'].map((social) => (
@@ -104,13 +104,14 @@ const Footer: React.FC = () => {
 
           {/* Contact & Status Card */}
           <div className="lg:col-span-4 bg-slate-900/50 p-8 rounded-[32px] border border-slate-800 shadow-2xl backdrop-blur-md">
-            <h3 className="text-white text-[11px] font-black uppercase tracking-[0.25em] mb-6">Mississauga Hub</h3>
+            <h3 className="text-white text-[11px] font-black uppercase tracking-[0.25em] mb-6">Oakville Hub</h3>
             <div className="space-y-6">
               <div>
                 <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Direct Emergency Dispatch</p>
                 <a href="tel:4164101744" className="text-3xl font-black text-white hover:text-blue-500 transition-colors block tracking-tighter">
                   (416) 410-1744
                 </a>
+                <p className="text-[10px] text-slate-500 mt-2 font-black uppercase tracking-widest">Oakville, ON L6M 4P2</p>
               </div>
               <div className="flex items-center justify-between p-4 bg-slate-950 rounded-2xl border border-slate-800">
                 <div>

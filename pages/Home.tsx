@@ -21,7 +21,7 @@ const Home: React.FC = () => {
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse [animation-delay:-0.2s]"></div>
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse [animation-delay:-0.4s]"></div>
               </div>
-              <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Mississauga Ops Center Active</span>
+              <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Oakville Ops Center Active</span>
             </div>
 
             <h1 className="text-huge font-black text-white mb-10 tracking-tighter drop-shadow-2xl">
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
             </h1>
             
             <p className="text-xl md:text-3xl text-slate-200 mb-14 font-bold max-w-2xl leading-[1.2] drop-shadow-md opacity-90">
-              Engineering award-winning home comfort systems that cut bills by 40% while unlocking <span className="text-blue-400 font-black">$7,100</span> in government incentives.
+              Engineering award-winning home comfort systems that cut bills by 40% while unlocking <span className="text-blue-400 font-black">$7,100</span> in government incentives. Proudly serving Oakville & the GTA.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center space-y-5 sm:space-y-0 sm:space-x-6">
@@ -84,7 +84,7 @@ const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
              {[
-               { title: 'Hybrid Heat Pumps', desc: 'The #1 cold-climate solution for maximum GTA rebates.', icon: '🔋', color: 'bg-blue-600' },
+               { title: 'Hybrid Heat Pumps', desc: 'The #1 cold-climate solution for maximum Oakville rebates.', icon: '🔋', color: 'bg-blue-600' },
                { title: 'Ultra-Efficiency AC', desc: 'Medical-grade cooling systems for high-performance homes.', icon: '❄️', color: 'bg-slate-900' },
                { title: 'Precision Furnaces', desc: '99% AFUE modulating gas tech for harsh Ontario winters.', icon: '🔥', color: 'bg-red-600' }
              ].map((s, i) => (
