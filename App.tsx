@@ -18,7 +18,7 @@ const App: React.FC = () => {
         <WeatherBanner />
         <Header />
         
-        <main className="flex-grow">
+        <main id="main-content" className="flex-grow" role="main">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
