@@ -53,20 +53,39 @@ const Rebates: React.FC = () => {
                 Oakville's elite portal for the $7,100 HER+ Grant. Our AI audit predicts your savings before you even book the first NRCAN assessment.
               </p>
               
-              {/* ENHANCED VISUAL APPEAL FOR GRANT POOL BADGE */}
+              {/* ULTRA-ELITE ORANGE GRANT POOL BADGE */}
               <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                 <div className="group relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-blue-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                  <div className="relative bg-slate-900 border border-white/10 px-6 py-3 rounded-full flex items-center space-x-4 shadow-2xl backdrop-blur-xl transition-all">
-                    <div className="relative flex h-3 w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.8)]"></span>
+                  {/* Outer Ambient Glow */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-orange-500 to-amber-600 rounded-full blur-[10px] opacity-20 group-hover:opacity-60 transition duration-1000 group-hover:duration-300"></div>
+                  
+                  {/* Main Badge Body */}
+                  <div className="relative bg-[#0A0F1E] border border-white/10 px-7 py-3.5 rounded-full flex items-center space-x-5 shadow-[0_20px_50px_-12px_rgba(249,115,22,0.3)] backdrop-blur-2xl transition-all hover:border-orange-500/30">
+                    
+                    {/* Multi-layered Pulsing Status Indicator */}
+                    <div className="relative flex items-center justify-center w-4 h-4">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-40"></span>
+                      <span className="animate-pulse absolute inline-flex h-3 w-3 rounded-full bg-orange-500 opacity-60"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-tr from-orange-600 to-amber-400 shadow-[0_0_15px_rgba(251,146,60,0.9)]"></span>
                     </div>
-                    <div className="flex flex-col items-start leading-none">
-                      <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em] mb-1">Live Program Status</span>
-                      <span className="text-[13px] font-black uppercase tracking-widest text-white">
-                        Grant Pool: <span className="text-emerald-400">$42M AVAILABLE</span>
-                      </span>
+
+                    <div className="flex flex-col items-start leading-none space-y-1">
+                      <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] antialiased">Live Program Allocation</span>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-[14px] font-black uppercase tracking-[0.1em] text-white">
+                          Grant Pool:
+                        </span>
+                        <span className="text-[14px] font-black uppercase tracking-[0.1em] text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300 drop-shadow-[0_0_8px_rgba(251,146,60,0.3)]">
+                          $42M AVAILABLE
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Elite Finishing Detail */}
+                    <div className="h-6 w-[1px] bg-slate-800 ml-2 hidden sm:block"></div>
+                    <div className="hidden sm:flex items-center space-x-1.5 pl-1">
+                      <span className="text-[9px] font-black text-orange-500 uppercase tracking-widest">Priority</span>
+                      <svg className="w-3.5 h-3.5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                     </div>
                   </div>
                 </div>
