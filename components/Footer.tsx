@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-950 text-slate-400 pt-20 pb-10" role="contentinfo">
+    <footer className="bg-slate-950 text-slate-300 pt-20 pb-10 border-t border-slate-900" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           
@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
                 <p className="text-[10px] uppercase tracking-[0.2em] text-blue-500 font-bold">Depot • GTA Experts</p>
               </div>
             </Link>
-            <p className="text-sm leading-relaxed font-medium opacity-80">
+            <p className="text-sm leading-relaxed font-semibold opacity-90 text-slate-400">
               Serving the Greater Toronto Area with award-winning HVAC solutions for over 20 years. 
               Trust, Expertise, and Local Care.
             </p>
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
                 <a 
                   key={social} 
                   href="#" 
-                  className="w-10 h-10 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-center text-[10px] font-black text-slate-500 hover:text-white hover:border-blue-600 hover:bg-blue-600/10 transition-all duration-300"
+                  className="w-10 h-10 bg-slate-900 border border-slate-800 rounded-xl flex items-center justify-center text-[10px] font-black text-slate-400 hover:text-white hover:border-blue-500 hover:bg-blue-600/20 transition-all duration-300"
                   aria-label={`Follow us on ${social}`}
                 >
                   {social}
@@ -40,28 +40,28 @@ const Footer: React.FC = () => {
           {/* Services Column */}
           <nav aria-label="Footer Services Navigation">
             <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Services</h3>
-            <ul className="space-y-4 text-[13px] font-medium">
-              <li><Link to="/services" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Furnace Installation</Link></li>
-              <li><Link to="/services" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">AC Repair & Maintenance</Link></li>
-              <li><Link to="/services" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Water Heater Services</Link></li>
-              <li><Link to="/services" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Air Filtration Systems</Link></li>
-              <li><Link to="/services" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Heat Pump Solutions</Link></li>
+            <ul className="space-y-4 text-[14px] font-bold">
+              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Furnace Installation</Link></li>
+              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">AC Repair & Maintenance</Link></li>
+              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Water Heater Services</Link></li>
+              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Air Filtration Systems</Link></li>
+              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Heat Pump Solutions</Link></li>
             </ul>
           </nav>
 
           {/* Rebates Column */}
           <nav aria-label="Footer Rebates Navigation">
             <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Rebates</h3>
-            <ul className="space-y-4 text-[13px] font-medium">
-              <li><Link to="/rebates" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Enbridge $7,100 Rebate</Link></li>
-              <li><Link to="/rebates" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Heat Pump Savings</Link></li>
-              <li><Link to="/rebates" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Green Home Incentives</Link></li>
-              <li><Link to="/rebates" className="hover:text-blue-500 hover:translate-x-1 inline-block transition-all duration-300">Efficiency Audits</Link></li>
+            <ul className="space-y-4 text-[14px] font-bold">
+              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Enbridge $7,100 Rebate</Link></li>
+              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Heat Pump Savings</Link></li>
+              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Green Home Incentives</Link></li>
+              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Efficiency Audits</Link></li>
             </ul>
           </nav>
 
           {/* Contact Section Column */}
-          <div className="bg-slate-900/50 p-8 rounded-3xl border border-slate-800 shadow-2xl">
+          <div className="bg-slate-900/40 p-8 rounded-3xl border border-slate-800 shadow-2xl backdrop-blur-sm">
             <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-6">Contact Us</h3>
             <div className="space-y-6">
               <div>
@@ -75,9 +75,9 @@ const Footer: React.FC = () => {
                 </a>
               </div>
               <div className="pt-2">
-                <div className="flex items-center space-x-2 bg-red-600/10 border border-red-600/30 px-3 py-1.5 rounded-lg w-fit">
-                  <span className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
-                  <span className="text-[10px] text-red-500 font-black uppercase tracking-widest">24/7 Response Active</span>
+                <div className="flex items-center space-x-2 bg-blue-600/10 border border-blue-600/30 px-3 py-1.5 rounded-lg w-fit">
+                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+                  <span className="text-[10px] text-blue-500 font-black uppercase tracking-widest">AI Triage Active</span>
                 </div>
               </div>
             </div>
@@ -85,10 +85,10 @@ const Footer: React.FC = () => {
         </div>
         
         {/* Bottom Bar */}
-        <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center text-[11px] font-bold text-slate-600 tracking-wider">
-          <p>© {new Date().getFullYear()} CANADA’S HOME RENOVATION DEPOT. ALL RIGHTS RESERVED.</p>
+        <div className="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center text-[11px] font-black text-slate-500 tracking-wider">
+          <p className="uppercase">© {new Date().getFullYear()} CANADA’S HOME RENOVATION DEPOT. ALL RIGHTS RESERVED.</p>
           <div className="flex items-center space-x-6 mt-4 md:mt-0 uppercase">
-            <span className="hover:text-slate-400 transition-colors cursor-default">Licensed & Insured HVAC Contractor</span>
+            <span className="hover:text-slate-300 transition-colors cursor-default">Licensed & Insured HVAC Contractor</span>
             <span className="w-1 h-1 bg-slate-800 rounded-full hidden md:block"></span>
             <Link to="/contact" className="hover:text-white transition-colors">Privacy Policy</Link>
           </div>
