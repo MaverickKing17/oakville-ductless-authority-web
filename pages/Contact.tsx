@@ -11,6 +11,7 @@ interface DispatchEvent {
   time: string;
   status: 'On-Site' | 'Dispatched' | 'Completed' | 'En-Route';
   priority: 1 | 2 | 3;
+  eta?: number; // Estimated time in minutes
 }
 
 const Contact: React.FC = () => {
@@ -42,7 +43,7 @@ const Contact: React.FC = () => {
   const [systemStatus, setSystemStatus] = useState('System Scanning...');
   const [recentEvents, setRecentEvents] = useState<DispatchEvent[]>([
     { id: 1, location: 'Port Credit', type: 'Furnace Repair', time: '14:22', status: 'On-Site', priority: 2 },
-    { id: 2, location: 'Erin Mills', type: 'Emergency No Heat', time: '14:18', status: 'Dispatched', priority: 1 },
+    { id: 2, location: 'Erin Mills', type: 'Emergency No Heat', time: '14:18', status: 'Dispatched', priority: 1, eta: 12 },
     { id: 3, location: 'Cooksville', type: 'Gas Leak Detection', time: '14:10', status: 'Completed', priority: 1 },
   ]);
 
@@ -65,13 +66,20 @@ const Contact: React.FC = () => {
 
       // Occasionally add a new event
       if (Math.random() > 0.7) {
+        const status: 'Dispatched' | 'En-Route' | 'On-Site' = Math.random() > 0.6 ? 'Dispatched' : (Math.random() > 0.5 ? 'En-Route' : 'On-Site');
+        
+        // Dynamic ETA logic: 10-45 mins depending on status and "traffic"
+        const hasEta = status === 'Dispatched' || status === 'En-Route';
+        const eta = hasEta ? Math.floor(Math.random() * 35) + 10 : undefined;
+
         const newEvent: DispatchEvent = {
           id: Date.now(),
           location: locations[Math.floor(Math.random() * locations.length)],
           type: types[Math.floor(Math.random() * types.length)],
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }),
-          status: Math.random() > 0.5 ? 'Dispatched' : 'En-Route',
-          priority: Math.random() > 0.8 ? 1 : (Math.random() > 0.5 ? 2 : 3)
+          status: status,
+          priority: Math.random() > 0.8 ? 1 : (Math.random() > 0.5 ? 2 : 3),
+          eta: eta
         };
         setRecentEvents(prev => [newEvent, ...prev.slice(0, 4)]);
       }
@@ -430,13 +438,13 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Enhanced Event Feed */}
+                {/* Enhanced Event Feed with Dynamic ETA */}
                 <div>
                    <div className="flex items-center justify-between mb-4">
                       <h4 className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Real-Time Activity Log</h4>
                    </div>
                    
-                   <div className="space-y-2 max-h-[200px] overflow-hidden" role="log" aria-live="polite">
+                   <div className="space-y-2 max-h-[220px] overflow-hidden" role="log" aria-live="polite">
                       {recentEvents.map(event => (
                         <div key={event.id} className={`flex items-start justify-between p-3 rounded-xl transition-all duration-500 border border-transparent ${
                           event.priority === 1 ? 'bg-red-950/20 border-red-900/30' : 'bg-slate-800/30'
@@ -447,19 +455,27 @@ const Contact: React.FC = () => {
                                   event.priority === 1 ? 'bg-red-500 animate-pulse' : 'bg-blue-400'
                                 }`}></span>
                               </div>
-                              <div>
+                              <div className="overflow-hidden">
                                  <div className="flex items-center space-x-2 mb-0.5">
-                                    <p className="font-bold text-[11px] text-slate-200">{event.type}</p>
+                                    <p className="font-bold text-[11px] text-slate-200 truncate">{event.type}</p>
                                     {event.priority === 1 && (
-                                      <span className="text-[8px] font-black bg-red-600 text-white px-1.5 rounded-sm animate-pulse">PRIORITY 1</span>
+                                      <span className="text-[8px] font-black bg-red-600 text-white px-1.5 rounded-sm animate-pulse shrink-0">PRIORITY 1</span>
                                     )}
                                  </div>
-                                 <p className="text-slate-500 text-[10px] tracking-tight">{event.location}</p>
+                                 <div className="flex items-center space-x-2">
+                                    <p className="text-slate-500 text-[10px] tracking-tight">{event.location}</p>
+                                    {event.eta !== undefined && (
+                                      <span className="text-[10px] font-bold text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded-md flex items-center space-x-1">
+                                        <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+                                        <span>ETA: {event.eta}m</span>
+                                      </span>
+                                    )}
+                                 </div>
                               </div>
                            </div>
-                           <div className="text-right">
+                           <div className="text-right shrink-0">
                               <p className={`text-[10px] font-black ${
-                                event.status === 'Dispatched' ? 'text-red-400' : 'text-blue-400'
+                                event.status === 'Dispatched' || event.status === 'En-Route' ? 'text-red-400' : 'text-blue-400'
                               }`}>{event.status.toUpperCase()}</p>
                               <p className="text-slate-600 font-mono text-[9px] mt-0.5">{event.time}</p>
                            </div>
