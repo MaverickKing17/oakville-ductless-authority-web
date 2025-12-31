@@ -362,10 +362,10 @@ const Contact: React.FC = () => {
           <div className="space-y-8">
             {/* Enhanced Real-Time Emergency Operations Dashboard */}
             <div className="bg-slate-900 text-white rounded-3xl shadow-2xl border border-slate-800 overflow-hidden relative">
-              {/* Critical Alert Banner */}
+              {/* Critical Alert Banner - Enhanced with high-intensity flash */}
               {recentEvents.some(e => e.priority === 1 && e.status !== 'Completed') && (
-                <div className="bg-red-600/20 backdrop-blur-md border-b border-red-500/50 px-6 py-1.5 flex items-center justify-center space-x-2 animate-pulse">
-                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-red-500">Critical Priority Alert</span>
+                <div className="bg-red-600 border-b border-red-500 px-6 py-2 flex items-center justify-center space-x-2 animate-[critical-flash_0.5s_infinite_alternate] shadow-[0_0_20px_rgba(220,38,38,0.5)]">
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">CRITICAL PRIORITY DISPATCH ACTIVE</span>
                 </div>
               )}
               
@@ -504,6 +504,10 @@ const Contact: React.FC = () => {
         @keyframes radar-sweep {
           from { transform: rotate(0deg) translateX(0); }
           to { transform: rotate(360deg) translateX(0); }
+        }
+        @keyframes critical-flash {
+          from { background-color: rgb(220 38 38); }
+          to { background-color: rgb(153 27 27); }
         }
       `}</style>
     </div>
