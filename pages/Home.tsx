@@ -8,10 +8,10 @@ const Home: React.FC = () => {
       {/* Hero Section: Massive 2026 Impact */}
       <section 
         className="relative min-h-[950px] flex items-center bg-cover bg-center overflow-hidden"
-        style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?q=80&w=2070&auto=format&fit=crop")' }}
+        style={{ backgroundImage: 'url("https://i.ibb.co/qFPVRjh7/gemini-2-5-flash-image-preview-nano-banana-a-Replace-the-current.png")' }}
       >
-        {/* Advanced Scrim for text pop */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/60 to-transparent"></div>
+        {/* Advanced Scrim for text pop - Optimized for the new visual depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/40 to-transparent"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <div className="flex flex-col">

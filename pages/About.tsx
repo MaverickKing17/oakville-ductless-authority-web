@@ -35,52 +35,40 @@ const About: React.FC = () => {
               </div>
               <div className="group">
                 <div className="text-5xl font-black text-slate-900 mb-2 tracking-tighter group-hover:text-blue-600 transition-colors">15k+</div>
-                <div className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em]">Certified Installs</div>
+                <div className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em]">Happy Homeowners</div>
               </div>
             </div>
           </div>
           
           <div className="relative">
-            {/* Technical Background Decorative */}
-            <div className="absolute -inset-4 bg-slate-50 rounded-[48px] -rotate-2 scale-105 opacity-50"></div>
+            {/* Artistic Background Layer */}
+            <div className="absolute -inset-4 bg-slate-50 rounded-[48px] -rotate-1 scale-105 opacity-50"></div>
             
-            {/* Main Image: High-Authority HVAC Engineering Context */}
-            <div className="relative rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] group">
+            {/* Main Image: Restored B&W Artistic Legacy Visual */}
+            <div className="relative rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.2)] group">
               <img 
-                src="https://images.unsplash.com/photo-1581094288338-2314dddb7bc3?q=80&w=2070&auto=format&fit=crop" 
-                alt="TSSA Certified Engineer performing precision inspection in a modern Mississauga home" 
-                className="w-full h-[650px] object-cover transition-transform duration-700 group-hover:scale-105"
+                src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2070&auto=format&fit=crop" 
+                alt="Architectural landscape representing the enduring legacy of comfort" 
+                className="w-full h-[650px] object-cover grayscale transition-transform duration-1000 group-hover:scale-110"
               />
               {/* Image Scrim */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-60"></div>
-              
-              {/* Technical Telemetry Overlay */}
-              <div className="absolute top-8 left-8 flex flex-col space-y-2 pointer-events-none">
-                <div className="bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
-                  <span className="text-[8px] font-mono text-blue-400 font-black tracking-widest uppercase">PRECISION_SYNC_ACTIVE</span>
-                </div>
-                <div className="bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
-                  <span className="text-[8px] font-mono text-white/60 font-black tracking-widest uppercase">COORD: 43.5890° N, 79.6441° W</span>
-                </div>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
             </div>
 
             {/* Glassmorphism Testimonial Card */}
-            <div className="absolute -bottom-12 -left-12 bg-white/80 backdrop-blur-2xl p-8 rounded-[32px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] max-w-sm border border-white group transform transition-transform hover:-translate-y-2">
-               <div className="flex items-center space-x-1 text-blue-600 mb-4">
+            <div className="absolute -bottom-10 -left-10 bg-white/90 backdrop-blur-2xl p-8 rounded-[32px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] max-w-sm border border-white transition-all hover:-translate-y-2">
+               <div className="flex items-center space-x-1 text-yellow-500 mb-4">
                  {[1,2,3,4,5].map(i => (
                    <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                    </svg>
                  ))}
-                 <span className="ml-2 text-[10px] font-black uppercase tracking-widest text-slate-400">Verified Client</span>
                </div>
-               <p className="text-base font-bold text-slate-800 leading-relaxed italic mb-4">
-                 "The Depot team didn't just fix my AC; they engineered a system that cut my Mississauga utility bills by 40% while navigating all the Enbridge paperwork."
+               <p className="text-lg font-bold text-slate-800 leading-snug mb-4">
+                 "The most professional HVAC crew in Mississauga. They handled the rebate paperwork and installed our furnace in record time."
                </p>
                <div className="flex items-center justify-between">
-                 <p className="text-xs font-black text-slate-900 uppercase tracking-widest">— Sarah J., Port Credit</p>
-                 <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-black text-[10px]">SJ</div>
+                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">— Sarah J., Port Credit</p>
                </div>
             </div>
           </div>
