@@ -1,6 +1,9 @@
 
 import React, { useState } from 'react';
 
+// Placeholder for Google Maps API Key
+const GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY_HERE';
+
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -50,6 +53,9 @@ const Contact: React.FC = () => {
     }, 1500);
   };
 
+  // Google Maps Embed URL for Mississauga/GTA area
+  const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=Mississauga,ON+Canada&zoom=10`;
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-20">
@@ -59,6 +65,7 @@ const Contact: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Form Container */}
           <div className="bg-white p-10 rounded-3xl shadow-sm border border-gray-100">
             {isSuccess ? (
               <div 
@@ -178,6 +185,39 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </div>
+
+            {/* Google Maps Embed Component */}
+            <div className="bg-white p-2 rounded-3xl shadow-xl border border-gray-100 h-[400px] overflow-hidden relative group">
+              <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-100 shadow-md">
+                 <p className="text-blue-900 font-black uppercase tracking-widest text-[10px]">Active Service Area: Mississauga & GTA</p>
+              </div>
+              
+              {GOOGLE_MAPS_API_KEY === 'YOUR_GOOGLE_MAPS_API_KEY_HERE' ? (
+                <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center text-center p-8">
+                  <div className="text-4xl mb-4">📍</div>
+                  <h4 className="font-bold text-gray-800 mb-2">Live Map Loading...</h4>
+                  <p className="text-xs text-gray-500">
+                    Map integration is ready. Please provide a valid Google Maps API key in Contact.tsx to enable the live view.
+                  </p>
+                  <img 
+                    src="https://picsum.photos/seed/mississauga/800/400" 
+                    className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none" 
+                    alt="Map preview"
+                  />
+                </div>
+              ) : (
+                <iframe
+                  title="Home Renovation Depot Service Area Map"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src={mapEmbedUrl}
+                ></iframe>
+              )}
             </div>
           </div>
         </div>
