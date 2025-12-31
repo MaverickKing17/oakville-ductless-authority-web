@@ -46,7 +46,7 @@ const Home: React.FC = () => {
                 </Link>
                 <Link 
                   to="/contact" 
-                  className="w-full sm:w-auto bg-white/10 backdrop-blur-md hover:bg-white/20 text-white px-12 py-7 rounded-[24px] font-black shadow-2xl transition-all transform hover:-translate-y-2 active:scale-95 text-center text-xl uppercase tracking-widest border border-white/20"
+                  className="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-950 px-12 py-7 rounded-[24px] font-black shadow-[0_20px_50px_rgba(255,255,255,0.4)] transition-all transform hover:-translate-y-2 active:scale-95 text-center text-xl uppercase tracking-widest border-2 border-transparent"
                 >
                   Free Quote
                 </Link>
