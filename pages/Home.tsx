@@ -11,14 +11,14 @@ const Home: React.FC = () => {
         style={{ backgroundImage: 'url("https://i.ibb.co/qFPVRjh7/gemini-2-5-flash-image-preview-nano-banana-a-Replace-the-current.png")' }}
       >
         {/* Lighter Scrim: Making the background image brighter and more welcoming */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/75 via-slate-900/40 to-transparent"></div>
         <div className="absolute inset-0 bg-slate-900/10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <div className="flex flex-col md:flex-row">
             <div className="w-full md:w-[65%] lg:w-[60%] py-12">
               {/* Dispatch Badge: High-Visibility Orange */}
-              <div className="inline-flex items-center space-x-2 bg-orange-600 border border-orange-400 px-4 py-2 rounded-full mb-8 shadow-[0_0_15px_rgba(234,88,12,0.5)]">
+              <div className="inline-flex items-center space-x-2 bg-orange-600 border border-orange-400 px-4 py-2 rounded-full mb-8 shadow-[0_0_20px_rgba(234,88,12,0.6)] animate-in fade-in slide-in-from-left-4 duration-700">
                 <span className="flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-white opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
@@ -27,14 +27,14 @@ const Home: React.FC = () => {
               </div>
 
               {/* Heading: High-Contrast White with Brilliant Blue Accent */}
-              <h1 className="text-5xl md:text-7xl lg:text-[84px] font-black text-white leading-[0.95] mb-8 tracking-tighter drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+              <h1 className="text-5xl md:text-7xl lg:text-[84px] font-black text-white leading-[0.95] mb-8 tracking-tighter drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]">
                 GTA's Trusted <br />
-                <span className="text-blue-400 drop-shadow-[0_0_20px_rgba(96,165,250,0.6)]">Home Comfort</span> <br />
+                <span className="text-blue-400 drop-shadow-[0_0_25px_rgba(96,165,250,0.7)]">Home Comfort</span> <br />
                 Experts
               </h1>
               
               {/* Subtext: High Readability White/Grey */}
-              <p className="text-lg md:text-2xl text-white mb-12 font-semibold max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+              <p className="text-lg md:text-2xl text-white mb-12 font-semibold max-w-xl leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.9)]">
                 Certified TSSA technicians providing elite furnace, AC, and heat pump solutions with 24/7 priority emergency support for your peace of mind.
               </p>
               
@@ -42,27 +42,39 @@ const Home: React.FC = () => {
               <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <Link 
                   to="/rebates" 
-                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black shadow-[0_20px_50px_-15px_rgba(37,99,235,0.6)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap"
+                  className="group w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black shadow-[0_20px_50px_-15px_rgba(37,99,235,0.6)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap"
                 >
                   Claim Your $7,100 Rebate
+                  <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
                 <Link 
                   to="/contact" 
-                  className="w-full sm:w-auto bg-white hover:bg-slate-100 text-slate-900 px-10 py-5 rounded-2xl font-black shadow-[0_20px_40px_-15px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap border-2 border-white/50"
+                  className="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-900 px-10 py-5 rounded-2xl font-black shadow-[0_20px_40px_-15px_rgba(255,255,255,0.4)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap border-2 border-white"
                 >
                   Request a Free Quote
                 </Link>
               </div>
 
-              {/* Verified Authority Row */}
-              <div className="mt-16 flex flex-wrap items-center gap-8 drop-shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                  <span className="text-white text-xs font-black uppercase tracking-widest">TSSA Certified</span>
+              {/* Enhanced Verified Authority Badges */}
+              <div className="mt-16 flex flex-wrap items-center gap-6">
+                {/* TSSA Badge */}
+                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-3 rounded-2xl shadow-2xl hover:bg-white/20 transition-all cursor-default group transform hover:scale-105">
+                  <div className="bg-blue-600 rounded-lg p-1.5 shadow-lg shadow-blue-600/30 group-hover:bg-blue-500 transition-colors">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-white text-[13px] font-black uppercase tracking-[0.15em] whitespace-nowrap drop-shadow-sm">TSSA Certified</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" /></svg>
-                  <span className="text-white text-xs font-black uppercase tracking-widest">A+ BBB Rated</span>
+
+                {/* BBB Badge */}
+                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-xl border border-white/20 px-5 py-3 rounded-2xl shadow-2xl hover:bg-white/20 transition-all cursor-default group transform hover:scale-105">
+                  <div className="bg-blue-400 rounded-lg p-1.5 shadow-lg shadow-blue-400/30 group-hover:bg-blue-300 transition-colors">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                    </svg>
+                  </div>
+                  <span className="text-white text-[13px] font-black uppercase tracking-[0.15em] whitespace-nowrap drop-shadow-sm">A+ BBB Rated</span>
                 </div>
               </div>
             </div>
