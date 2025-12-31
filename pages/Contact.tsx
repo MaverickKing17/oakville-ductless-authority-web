@@ -4,6 +4,15 @@ import React, { useState, useEffect } from 'react';
 // Placeholder for Google Maps API Key
 const GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAPS_API_KEY_HERE';
 
+interface DispatchEvent {
+  id: number;
+  location: string;
+  type: string;
+  time: string;
+  status: 'On-Site' | 'Dispatched' | 'Completed' | 'En-Route';
+  priority: 1 | 2 | 3;
+}
+
 const Contact: React.FC = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -30,29 +39,53 @@ const Contact: React.FC = () => {
   // Emergency Monitoring State
   const [activeCrews, setActiveCrews] = useState(4);
   const [dispatchedCrews, setDispatchedCrews] = useState(6);
-  const [recentEvents, setRecentEvents] = useState([
-    { id: 1, location: 'Port Credit', type: 'Furnace Repair', time: '2 mins ago', status: 'On-Site' },
-    { id: 2, location: 'Erin Mills', type: 'Emergency No Heat', time: '8 mins ago', status: 'Dispatched' },
-    { id: 3, location: 'Cooksville', type: 'Gas Leak Detection', time: '14 mins ago', status: 'Completed' },
+  const [systemStatus, setSystemStatus] = useState('System Scanning...');
+  const [recentEvents, setRecentEvents] = useState<DispatchEvent[]>([
+    { id: 1, location: 'Port Credit', type: 'Furnace Repair', time: '14:22', status: 'On-Site', priority: 2 },
+    { id: 2, location: 'Erin Mills', type: 'Emergency No Heat', time: '14:18', status: 'Dispatched', priority: 1 },
+    { id: 3, location: 'Cooksville', type: 'Gas Leak Detection', time: '14:10', status: 'Completed', priority: 1 },
   ]);
 
-  // Simulate real-time data fluctuations
+  // Simulate real-time data fluctuations and new events
   useEffect(() => {
+    const locations = ['Streetsville', 'Meadowvale', 'Churchill Meadows', 'Lakeview', 'Mineola', 'Sheridan'];
+    const types = ['Emergency No Heat', 'AC Failure', 'Furnace Triage', 'Rebate Audit', 'Maintenance'];
+    const statusCycle = ['Scanning Mississauga South...', 'Analyzing Load Balance...', 'GPS Sync Active...', 'Optimizing Crew Routes...'];
+    
+    let statusIdx = 0;
+
     const interval = setInterval(() => {
+      // Update counters
       setActiveCrews(prev => Math.max(2, Math.min(6, prev + (Math.random() > 0.5 ? 1 : -1))));
       setDispatchedCrews(prev => Math.max(4, Math.min(10, prev + (Math.random() > 0.5 ? 1 : -1))));
-    }, 10000);
+      
+      // Update system status text
+      setSystemStatus(statusCycle[statusIdx % statusCycle.length]);
+      statusIdx++;
+
+      // Occasionally add a new event
+      if (Math.random() > 0.7) {
+        const newEvent: DispatchEvent = {
+          id: Date.now(),
+          location: locations[Math.floor(Math.random() * locations.length)],
+          type: types[Math.floor(Math.random() * types.length)],
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }),
+          status: Math.random() > 0.5 ? 'Dispatched' : 'En-Route',
+          priority: Math.random() > 0.8 ? 1 : (Math.random() > 0.5 ? 2 : 3)
+        };
+        setRecentEvents(prev => [newEvent, ...prev.slice(0, 4)]);
+      }
+    }, 5000);
+    
     return () => clearInterval(interval);
   }, []);
 
-  // Generate next 7 days for the booking system
   const getNextDays = () => {
     const days = [];
     const options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' };
     for (let i = 1; i <= 7; i++) {
       const d = new Date();
       d.setDate(d.getDate() + i);
-      // Skip Sundays for non-emergency bookings in the mock
       if (d.getDay() !== 0) {
         days.push({
           full: d.toISOString().split('T')[0],
@@ -78,7 +111,6 @@ const Contact: React.FC = () => {
         isValid = false;
       }
     } else if (step === 2) {
-      // Step 2 is bypassed for emergencies
       if (!isEmergency && (!formData.date || !formData.time)) {
         newErrors.dateTime = 'Please select both a date and a time slot';
         isValid = false;
@@ -98,7 +130,6 @@ const Contact: React.FC = () => {
   const nextStep = () => {
     if (validateStep()) {
       if (step === 1 && isEmergency) {
-        // Automatically set a placeholder for date/time when bypassing
         setFormData(prev => ({ ...prev, date: 'ASAP', time: 'Priority Window' }));
         setStep(3); 
       } else {
@@ -126,14 +157,12 @@ const Contact: React.FC = () => {
     if (!validateStep()) return;
 
     setIsSubmitting(true);
-    // Simulate API call to booking engine
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSuccess(true);
     }, 1500);
   };
 
-  // Google Maps Embed URL for Mississauga/GTA area
   const mapEmbedUrl = `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=Mississauga,ON+Canada&zoom=10`;
 
   const services = [
@@ -143,7 +172,6 @@ const Contact: React.FC = () => {
     { id: 'emergency', label: 'Emergency (No Heat)', icon: '🚨' },
   ];
 
-  // Calculate dynamic progress bar width
   const getProgressWidth = () => {
     if (isEmergency) {
       return step === 1 ? '33%' : '100%';
@@ -168,7 +196,6 @@ const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Booking System Container */}
           <div className={`lg:col-span-2 bg-white rounded-3xl shadow-xl border overflow-hidden transition-all duration-300 ${isEmergency ? 'border-red-200' : 'border-gray-100'}`}>
-            {/* Dynamic Progress Bar */}
             <div className="bg-gray-100 h-2 flex">
               <div 
                 className={`h-full transition-all duration-500 ${isEmergency ? 'bg-red-600' : 'bg-blue-600'}`} 
@@ -187,17 +214,11 @@ const Contact: React.FC = () => {
                   </h2>
                   <p className="text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
                     {isEmergency ? (
-                      <>Your <span className="text-red-600 font-bold uppercase">Priority Level 1</span> request has been broadcasted to our active crews in {recentEvents[0].location}. A technician will contact you within minutes.</>
+                      <>Your <span className="text-red-600 font-bold uppercase">Priority Level 1</span> request has been broadcasted to our active crews. A technician will contact you within minutes.</>
                     ) : (
                       <>Thank you, <span className="font-bold">{formData.name}</span>. Your {formData.service} appointment is confirmed for <span className="font-bold text-blue-600">{formData.date}</span>.</>
                     )}
                   </p>
-                  <div className={`p-6 rounded-2xl border max-w-md mx-auto mb-8 ${isEmergency ? 'bg-red-50 border-red-100' : 'bg-blue-50 border-blue-100'}`}>
-                    <p className={`text-sm font-medium ${isEmergency ? 'text-red-800' : 'text-blue-800'}`}>
-                      SMS confirmation sent to {formData.phone}. 
-                      {isEmergency && " Keep your line clear for the arriving technician."}
-                    </p>
-                  </div>
                   <button 
                     onClick={() => { setIsSuccess(false); setStep(1); setFormData({ name: '', phone: '', service: '', date: '', time: '', message: '' }); }}
                     className={`${isEmergency ? 'text-red-600 hover:text-red-700' : 'text-blue-600 hover:text-blue-700'} font-bold hover:underline`}
@@ -207,7 +228,6 @@ const Contact: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  {/* Step 1: Service Selection */}
                   {step === 1 && (
                     <div className="animate-in fade-in slide-in-from-right-4">
                       <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
@@ -250,14 +270,12 @@ const Contact: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Step 2: Date & Time (Skipped for emergencies) */}
                   {step === 2 && (
                     <div className="animate-in fade-in slide-in-from-right-4">
                       <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
                         <span className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm mr-3">2</span>
                         Choose Arrival Date
                       </h2>
-                      
                       <div className="mb-8">
                         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                           {availableDays.map((d) => (
@@ -299,23 +317,14 @@ const Contact: React.FC = () => {
                           </div>
                         </div>
                       )}
-                      
                       {errors.dateTime && <p className="mt-4 text-red-500 font-bold text-sm">{errors.dateTime}</p>}
-
                       <div className="mt-12 flex justify-between">
                         <button type="button" onClick={prevStep} className="text-gray-500 font-bold hover:text-gray-700">Back</button>
-                        <button 
-                          type="button" 
-                          onClick={nextStep}
-                          className="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-all"
-                        >
-                          Next: Contact Info
-                        </button>
+                        <button type="button" onClick={nextStep} className="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-all">Next: Contact Info</button>
                       </div>
                     </div>
                   )}
 
-                  {/* Step 3: Contact Details */}
                   {step === 3 && (
                     <div className="animate-in fade-in slide-in-from-right-4">
                       <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
@@ -324,84 +333,21 @@ const Contact: React.FC = () => {
                         </span>
                         {isEmergency ? 'Dispatch Details' : 'Final Step: Contact Information'}
                       </h2>
-                      
-                      {isEmergency && (
-                        <div className="bg-red-50 border border-red-100 p-4 rounded-xl mb-8 flex items-center space-x-3">
-                           <span className="text-xl">🚨</span>
-                           <p className="text-xs text-red-800 font-medium italic">Emergency mode active. Our closest Mississauga crew is standing by for your submission.</p>
-                        </div>
-                      )}
-
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">Primary Contact Name</label>
-                          <input 
-                            id="name"
-                            type="text" 
-                            name="name"
-                            required
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" 
-                            placeholder="Full Name" 
-                          />
+                          <input id="name" type="text" name="name" required value={formData.name} onChange={handleInputChange} className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" placeholder="Full Name" />
                         </div>
                         <div>
-                          <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-2">Mobile Phone (for SMS Updates)</label>
-                          <input 
-                            id="phone"
-                            type="tel" 
-                            name="phone"
-                            required
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            className={`w-full p-4 bg-gray-50 border rounded-xl focus:ring-2 outline-none ${
-                              errors.phone ? 'border-red-500 focus:ring-red-200' : 'border-gray-200 focus:ring-blue-600'
-                            }`} 
-                            placeholder="(416) 000-0000" 
-                          />
+                          <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-2">Mobile Phone</label>
+                          <input id="phone" type="tel" name="phone" required value={formData.phone} onChange={handleInputChange} className={`w-full p-4 bg-gray-50 border rounded-xl focus:ring-2 outline-none ${errors.phone ? 'border-red-500 focus:ring-red-200' : 'border-gray-200 focus:ring-blue-600'}`} placeholder="(416) 000-0000" />
                           {errors.phone && <p className="mt-2 text-xs font-bold text-red-500">{errors.phone}</p>}
                         </div>
                       </div>
-                      
-                      <div>
-                        <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-2">Brief Problem Description</label>
-                        <textarea 
-                          id="message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl h-24 focus:ring-2 focus:ring-blue-600 outline-none resize-none" 
-                          placeholder={isEmergency ? "e.g., Furnace is making loud noise and blowing cold air..." : "Additional details..."}
-                        ></textarea>
-                      </div>
-
-                      <div className={`mt-8 p-6 rounded-2xl border flex items-center justify-between ${isEmergency ? 'bg-red-50 border-red-100' : 'bg-blue-50 border-blue-100'}`}>
-                        <div className="flex items-center space-x-4">
-                          <div className="text-2xl">{isEmergency ? '⚡' : '📅'}</div>
-                          <div>
-                            <p className={`text-sm font-bold ${isEmergency ? 'text-red-900' : 'text-blue-900'}`}>
-                              {isEmergency ? 'Priority Dispatch' : 'Scheduled Visit'}
-                            </p>
-                            <p className={`text-[10px] ${isEmergency ? 'text-red-700' : 'text-blue-700'} uppercase font-black`}>
-                              {isEmergency ? 'ETA: ASAP (Closest available crew)' : `${formData.date} - ${formData.time}`}
-                            </p>
-                          </div>
-                        </div>
-                        {isEmergency && <div className="w-2 h-2 bg-red-600 rounded-full animate-ping"></div>}
-                      </div>
-
+                      <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl h-24 focus:ring-2 focus:ring-blue-600 outline-none resize-none" placeholder={isEmergency ? "e.g., Furnace is making loud noise and blowing cold air..." : "Additional details..."}></textarea>
                       <div className="mt-12 flex justify-between items-center">
                         <button type="button" onClick={prevStep} className="text-gray-500 font-bold hover:text-gray-700">Back</button>
-                        <button 
-                          type="submit"
-                          disabled={isSubmitting}
-                          className={`px-12 py-4 rounded-xl font-black shadow-2xl transition-all ${
-                            isEmergency 
-                              ? 'bg-red-600 text-white hover:bg-red-700 active:scale-95' 
-                              : 'bg-blue-600 text-white hover:bg-blue-700'
-                          } ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                        >
+                        <button type="submit" disabled={isSubmitting} className={`px-12 py-4 rounded-xl font-black shadow-2xl transition-all ${isEmergency ? 'bg-red-600 text-white hover:bg-red-700 active:scale-95' : 'bg-blue-600 text-white hover:bg-blue-700'} ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}>
                           {isSubmitting ? 'Sending Request...' : (isEmergency ? 'DISPATCH PRIORITY CREW' : 'Book Appointment')}
                         </button>
                       </div>
@@ -414,74 +360,113 @@ const Contact: React.FC = () => {
 
           {/* Contact Sidebar / Monitoring Dashboard */}
           <div className="space-y-8">
-            {/* Real-Time Emergency Operations Dashboard */}
-            <div className="bg-slate-900 text-white rounded-3xl shadow-2xl border border-slate-800 overflow-hidden">
-              <div className="bg-red-600 px-6 py-2 flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 bg-white rounded-full animate-ping"></span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">Live Ops Dashboard</span>
+            {/* Enhanced Real-Time Emergency Operations Dashboard */}
+            <div className="bg-slate-900 text-white rounded-3xl shadow-2xl border border-slate-800 overflow-hidden relative">
+              {/* Critical Alert Banner */}
+              {recentEvents.some(e => e.priority === 1 && e.status !== 'Completed') && (
+                <div className="bg-red-600/20 backdrop-blur-md border-b border-red-500/50 px-6 py-1.5 flex items-center justify-center space-x-2 animate-pulse">
+                  <span className="text-[9px] font-black uppercase tracking-[0.3em] text-red-500">Critical Priority Alert</span>
                 </div>
-                <span className="text-[10px] opacity-70">GTA Dispatch v4.2</span>
+              )}
+              
+              <div className="bg-slate-950 px-6 py-4 flex justify-between items-center border-b border-slate-800">
+                <div className="flex items-center space-x-3">
+                  <div className="w-2.5 h-2.5 bg-red-600 rounded-full animate-ping"></div>
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] block text-slate-400">Live Ops Center</span>
+                    <span className="text-[9px] font-mono text-slate-600">DISPATCH_V4.2.0</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                   <span className="text-[10px] font-mono text-blue-500 font-bold">{new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12: false})}</span>
+                </div>
               </div>
               
               <div className="p-6">
                 {/* Stats Counters */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Crews Active</p>
+                  <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/30 group hover:border-blue-500/50 transition-colors">
+                    <p className="text-[9px] text-slate-500 font-black uppercase tracking-wider mb-1">Crews Active</p>
                     <div className="flex items-baseline space-x-2">
-                       <span className="text-2xl font-black text-white" role="status" aria-live="polite">{activeCrews}</span>
-                       <span className="text-[10px] text-green-400 font-bold">READY</span>
+                       <span className="text-3xl font-black text-white" role="status" aria-live="polite">{activeCrews}</span>
+                       <span className="text-[10px] text-green-500 font-bold bg-green-500/10 px-1.5 py-0.5 rounded">ONLINE</span>
                     </div>
                   </div>
-                  <div className="bg-slate-800/50 p-4 rounded-2xl border border-slate-700/50">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">On Dispatch</p>
+                  <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/30 group hover:border-red-500/50 transition-colors">
+                    <p className="text-[9px] text-slate-500 font-black uppercase tracking-wider mb-1">On Dispatch</p>
                     <div className="flex items-baseline space-x-2">
-                       <span className="text-2xl font-black text-red-500" role="status" aria-live="polite">{dispatchedCrews}</span>
-                       <span className="text-[10px] text-red-400 font-bold">ACTIVE</span>
+                       <span className="text-3xl font-black text-red-500" role="status" aria-live="polite">{dispatchedCrews}</span>
+                       <span className="text-[10px] text-red-400 font-bold bg-red-500/10 px-1.5 py-0.5 rounded animate-pulse">BUSY</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Performance Ticker */}
-                <div className="bg-slate-800/30 rounded-2xl p-4 border border-slate-700/30 mb-6">
-                   <div className="flex justify-between items-center mb-2">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase">Avg. Response Time</span>
-                      <span className="text-[10px] font-bold text-blue-400">FASTER THAN AVG</span>
-                   </div>
-                   <div className="flex items-center space-x-3">
-                      <span className="text-3xl font-black tracking-tighter">32m</span>
-                      <div className="flex-grow h-1.5 bg-slate-700 rounded-full overflow-hidden">
-                         <div className="h-full bg-blue-500 w-[85%] rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
-                      </div>
-                   </div>
+                {/* Radar Scanning Icon Component */}
+                <div className="bg-slate-800/20 rounded-2xl p-6 border border-slate-700/20 mb-6 flex items-center space-x-6">
+                  <div className="relative w-16 h-16 flex items-center justify-center shrink-0">
+                    {/* Pulsing rings */}
+                    <div className="absolute inset-0 rounded-full bg-blue-500/10 animate-ping"></div>
+                    <div className="absolute inset-2 rounded-full bg-blue-500/20 animate-pulse"></div>
+                    {/* Rotating Radar Sweep */}
+                    <div className="absolute inset-0 rounded-full border border-slate-700 overflow-hidden">
+                      <div className="absolute top-1/2 left-1/2 w-full h-[1px] bg-gradient-to-r from-transparent to-blue-500/60 origin-left animate-[radar-sweep_4s_linear_infinite]"></div>
+                    </div>
+                    {/* Center point */}
+                    <div className="w-2 h-2 bg-blue-500 rounded-full z-10 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Network Status</span>
+                      <span className="text-[9px] font-bold text-blue-400">LIVE</span>
+                    </div>
+                    <p className="text-xs font-mono text-blue-100/80 uppercase tracking-tighter truncate max-w-[140px]">{systemStatus}</p>
+                    <div className="flex space-x-1 mt-2">
+                      {[1,2,3,4,5,6].map(i => (
+                        <div key={i} className={`h-1 w-2 rounded-full bg-blue-600/30 overflow-hidden`}>
+                          <div className={`h-full bg-blue-400 animate-[pulse_1s_infinite]`} style={{ animationDelay: `${i * 0.1}s` }}></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Recent Event Feed */}
+                {/* Enhanced Event Feed */}
                 <div>
-                   <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Live Dispatch Feed</h4>
-                   <div className="space-y-3" role="log" aria-live="polite">
+                   <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-[9px] font-black text-slate-500 uppercase tracking-widest">Real-Time Activity Log</h4>
+                   </div>
+                   
+                   <div className="space-y-2 max-h-[200px] overflow-hidden" role="log" aria-live="polite">
                       {recentEvents.map(event => (
-                        <div key={event.id} className="flex items-start justify-between text-[11px] py-2 border-b border-slate-800/50 last:border-0 group">
+                        <div key={event.id} className={`flex items-start justify-between p-3 rounded-xl transition-all duration-500 border border-transparent ${
+                          event.priority === 1 ? 'bg-red-950/20 border-red-900/30' : 'bg-slate-800/30'
+                        }`}>
                            <div className="flex space-x-3">
-                              <span className="w-1 h-1 bg-red-500 rounded-full mt-1.5 group-hover:scale-150 transition-transform"></span>
+                              <div className="flex flex-col items-center pt-1">
+                                <span className={`w-1.5 h-1.5 rounded-full ${
+                                  event.priority === 1 ? 'bg-red-500 animate-pulse' : 'bg-blue-400'
+                                }`}></span>
+                              </div>
                               <div>
-                                 <p className="font-bold text-slate-200">{event.type}</p>
-                                 <p className="text-slate-500">{event.location}</p>
+                                 <div className="flex items-center space-x-2 mb-0.5">
+                                    <p className="font-bold text-[11px] text-slate-200">{event.type}</p>
+                                    {event.priority === 1 && (
+                                      <span className="text-[8px] font-black bg-red-600 text-white px-1.5 rounded-sm animate-pulse">PRIORITY 1</span>
+                                    )}
+                                 </div>
+                                 <p className="text-slate-500 text-[10px] tracking-tight">{event.location}</p>
                               </div>
                            </div>
                            <div className="text-right">
-                              <p className="text-blue-400 font-bold">{event.status}</p>
-                              <p className="text-slate-600 text-[9px]">{event.time}</p>
+                              <p className={`text-[10px] font-black ${
+                                event.status === 'Dispatched' ? 'text-red-400' : 'text-blue-400'
+                              }`}>{event.status.toUpperCase()}</p>
+                              <p className="text-slate-600 font-mono text-[9px] mt-0.5">{event.time}</p>
                            </div>
                         </div>
                       ))}
                    </div>
                 </div>
-              </div>
-              
-              <div className="bg-slate-800/80 px-6 py-4 text-center">
-                 <p className="text-[10px] text-slate-400">Emergency Dispatch priority is given to <span className="text-white font-bold">Port Credit & Mississauga South</span> currently.</p>
               </div>
             </div>
 
@@ -490,10 +475,10 @@ const Contact: React.FC = () => {
               <p className="mb-8 text-blue-100 text-sm">Bypass the digital queue for active leaks or complete furnace failures.</p>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <span className="text-xl shrink-0" aria-hidden="true">📞</span>
+                  <span className="text-xl shrink-0">📞</span>
                   <div>
                     <p className="font-bold">24/7 Command Center</p>
-                    <a href="tel:4164101744" className="text-white text-3xl font-black hover:scale-105 transition-transform inline-block">
+                    <a href="tel:4164101744" className="text-white text-3xl font-black hover:scale-105 transition-transform inline-block focus:outline-none focus:ring-2 focus:ring-white rounded-lg">
                       (416) 410-1744
                     </a>
                   </div>
@@ -504,35 +489,23 @@ const Contact: React.FC = () => {
             {/* Google Maps Embed Component */}
             <div className="bg-white p-2 rounded-3xl shadow-xl border border-gray-100 h-[250px] overflow-hidden relative group">
               <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-100 shadow-md">
-                 <p className="text-blue-900 font-black uppercase tracking-widest text-[10px]">Service Boundary: GTA</p>
+                 <p className="text-blue-900 font-black uppercase tracking-widest text-[10px]">Service Area: Mississauga & South GTA</p>
               </div>
-              
-              {GOOGLE_MAPS_API_KEY === 'YOUR_GOOGLE_MAPS_API_KEY_HERE' ? (
-                <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center text-center p-8">
-                  <div className="text-4xl mb-4 opacity-50">📍</div>
-                  <h4 className="font-bold text-gray-400 mb-2">Coverage Map</h4>
-                  <img 
-                    src="https://picsum.photos/seed/mississauga/800/400" 
-                    className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none" 
-                    alt="Map preview"
-                  />
-                </div>
-              ) : (
-                <iframe
-                  title="Home Renovation Depot Service Area Map"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  loading="lazy"
-                  allowFullScreen
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={mapEmbedUrl}
-                ></iframe>
-              )}
+              <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center text-center p-8 relative overflow-hidden">
+                <img src="https://picsum.photos/seed/mississauga/800/400" className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none grayscale" alt="Map preview" />
+                <div className="text-4xl mb-4 opacity-50 relative z-10">📍</div>
+                <h4 className="font-bold text-gray-400 mb-2 relative z-10">Coverage Map</h4>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes radar-sweep {
+          from { transform: rotate(0deg) translateX(0); }
+          to { transform: rotate(360deg) translateX(0); }
+        }
+      `}</style>
     </div>
   );
 };
