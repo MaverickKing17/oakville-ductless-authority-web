@@ -52,10 +52,23 @@ const Rebates: React.FC = () => {
               <p className="text-xl text-slate-400 font-medium leading-relaxed mb-10">
                 Oakville's elite portal for the $7,100 HER+ Grant. Our AI audit predicts your savings before you even book the first NRCAN assessment.
               </p>
+              
+              {/* ENHANCED VISUAL APPEAL FOR GRANT POOL BADGE */}
               <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">Grant Pool: $42M Available</span>
+                <div className="group relative">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-blue-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                  <div className="relative bg-slate-900 border border-white/10 px-6 py-3 rounded-full flex items-center space-x-4 shadow-2xl backdrop-blur-xl transition-all">
+                    <div className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.8)]"></span>
+                    </div>
+                    <div className="flex flex-col items-start leading-none">
+                      <span className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em] mb-1">Live Program Status</span>
+                      <span className="text-[13px] font-black uppercase tracking-widest text-white">
+                        Grant Pool: <span className="text-emerald-400">$42M AVAILABLE</span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
