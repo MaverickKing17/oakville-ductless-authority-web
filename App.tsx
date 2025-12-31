@@ -10,6 +10,10 @@ import Services from './pages/Services';
 import Rebates from './pages/Rebates';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Warranty from './pages/Warranty';
+import FAQ from './pages/FAQ';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +29,10 @@ const App: React.FC = () => {
             <Route path="/rebates" element={<Rebates />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/warranty" element={<Warranty />} />
+            <Route path="/faq" element={<FAQ />} />
           </Routes>
         </main>
 

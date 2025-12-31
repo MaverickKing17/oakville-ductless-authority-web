@@ -37,26 +37,25 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Services Column */}
-          <nav aria-label="Footer Services Navigation">
-            <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Services</h3>
+          {/* Services & Support */}
+          <nav aria-label="Support Navigation">
+            <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Support</h3>
             <ul className="space-y-4 text-[14px] font-bold">
-              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Furnace Installation</Link></li>
-              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">AC Repair & Maintenance</Link></li>
-              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Water Heater Services</Link></li>
-              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Air Filtration Systems</Link></li>
-              <li><Link to="/services" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Heat Pump Solutions</Link></li>
+              <li><Link to="/faq" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">FAQs</Link></li>
+              <li><Link to="/warranty" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Warranty Info</Link></li>
+              <li><Link to="/contact" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Service Request</Link></li>
+              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Rebate Status</Link></li>
             </ul>
           </nav>
 
-          {/* Rebates Column */}
-          <nav aria-label="Footer Rebates Navigation">
-            <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Rebates</h3>
+          {/* Company & Legal */}
+          <nav aria-label="Legal Navigation">
+            <h3 className="text-white text-sm font-black uppercase tracking-[0.15em] mb-8 border-l-2 border-blue-600 pl-4">Company</h3>
             <ul className="space-y-4 text-[14px] font-bold">
-              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Enbridge $7,100 Rebate</Link></li>
-              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Heat Pump Savings</Link></li>
-              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Green Home Incentives</Link></li>
-              <li><Link to="/rebates" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Efficiency Audits</Link></li>
+              <li><Link to="/about" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">About Us</Link></li>
+              <li><Link to="/privacy" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Terms of Service</Link></li>
+              <li><Link to="/contact" className="text-slate-300 hover:text-white hover:translate-x-1 inline-block transition-all duration-300 decoration-blue-500/0 hover:decoration-blue-500 underline underline-offset-4">Carrier Opportunities</Link></li>
             </ul>
           </nav>
 
@@ -90,7 +89,7 @@ const Footer: React.FC = () => {
           <div className="flex items-center space-x-6 mt-4 md:mt-0 uppercase">
             <span className="hover:text-slate-300 transition-colors cursor-default">Licensed & Insured HVAC Contractor</span>
             <span className="w-1 h-1 bg-slate-800 rounded-full hidden md:block"></span>
-            <Link to="/contact" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/privacy" className="hover:text-white transition-colors">Legal Notices</Link>
           </div>
         </div>
       </div>

@@ -5,57 +5,76 @@ import { Link } from 'react-router-dom';
 const Home: React.FC = () => {
   return (
     <div className="bg-white">
-      {/* Hero Section: Enhanced with Screenshot Fidelity */}
+      {/* Hero Section: Engineered for High-Authority & Maximum Impact */}
       <section 
-        className="relative min-h-[750px] flex items-center bg-cover bg-center overflow-hidden"
+        className="relative min-h-[850px] flex items-center bg-cover bg-center overflow-hidden"
         style={{ backgroundImage: 'url("https://i.ibb.co/qFPVRjh7/gemini-2-5-flash-image-preview-nano-banana-a-Replace-the-current.png")' }}
       >
-        {/* Subtle radial overlay for improved text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/10"></div>
+        {/* Lighter Scrim: Making the background image brighter and more welcoming */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-900/30 to-transparent"></div>
+        <div className="absolute inset-0 bg-slate-900/10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-          <div className="flex flex-col md:flex-row justify-end">
-            <div className="w-full md:w-[55%] p-6 md:p-0">
-              {/* Heading: Bold and Direct as per screenshot */}
-              <h2 className="text-5xl md:text-[68px] font-black text-slate-900 leading-[1.1] mb-8 tracking-tight">
-                GTA's Trusted <span className="text-blue-600">Home Comfort</span> Experts
-              </h2>
+          <div className="flex flex-col md:flex-row">
+            <div className="w-full md:w-[65%] lg:w-[60%] py-12">
+              {/* Dispatch Badge: High-Visibility Orange */}
+              <div className="inline-flex items-center space-x-2 bg-orange-600 border border-orange-400 px-4 py-2 rounded-full mb-8 shadow-[0_0_15px_rgba(234,88,12,0.5)]">
+                <span className="flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-white opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Mississauga Dispatch Active</span>
+              </div>
+
+              {/* Heading: High-Contrast White with Brilliant Blue Accent */}
+              <h1 className="text-5xl md:text-7xl lg:text-[84px] font-black text-white leading-[0.95] mb-8 tracking-tighter drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                GTA's Trusted <br />
+                <span className="text-blue-400 drop-shadow-[0_0_20px_rgba(96,165,250,0.6)]">Home Comfort</span> <br />
+                Experts
+              </h1>
               
-              {/* Subtext: Specific weight and color to match screenshot */}
-              <p className="text-xl md:text-2xl text-gray-700 mb-12 font-medium max-w-xl leading-relaxed opacity-90">
-                We provide professional furnace, AC, and heat pump solutions with guaranteed TSSA compliance and 24/7 emergency support.
+              {/* Subtext: High Readability White/Grey */}
+              <p className="text-lg md:text-2xl text-white mb-12 font-semibold max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                Certified TSSA technicians providing elite furnace, AC, and heat pump solutions with 24/7 priority emergency support for your peace of mind.
               </p>
               
-              {/* Buttons: Clean, rounded-2xl, and distinct shadows */}
-              <div className="flex flex-col sm:flex-row items-center space-y-5 sm:space-y-0 sm:space-x-6">
+              {/* CTA Group: Modern Elevation */}
+              <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <Link 
                   to="/rebates" 
-                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-10 py-5 rounded-2xl font-bold shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap"
+                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black shadow-[0_20px_50px_-15px_rgba(37,99,235,0.6)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap"
                 >
                   Claim Your $7,100 Rebate
                 </Link>
                 <Link 
                   to="/contact" 
-                  className="w-full sm:w-auto bg-white border border-slate-100 hover:bg-slate-50 text-slate-900 px-10 py-5 rounded-2xl font-bold shadow-[0_15px_30px_-10px_rgba(0,0,0,0.1)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap"
+                  className="w-full sm:w-auto bg-white hover:bg-slate-100 text-slate-900 px-10 py-5 rounded-2xl font-black shadow-[0_20px_40px_-15px_rgba(255,255,255,0.3)] transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap border-2 border-white/50"
                 >
                   Request a Free Quote
                 </Link>
+              </div>
+
+              {/* Verified Authority Row */}
+              <div className="mt-16 flex flex-wrap items-center gap-8 drop-shadow-lg">
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                  <span className="text-white text-xs font-black uppercase tracking-widest">TSSA Certified</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" /></svg>
+                  <span className="text-white text-xs font-black uppercase tracking-widest">A+ BBB Rated</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Rapid Response Badge with pulsate accent */}
-        <div className="absolute bottom-12 left-4 md:left-12 flex items-center space-x-3">
-          <div className="bg-blue-600 text-white px-7 py-4 rounded-2xl font-black shadow-2xl inline-flex items-center transition-all group cursor-default border border-blue-400/30">
-            <span className="w-2.5 h-2.5 bg-white rounded-full mr-3 animate-pulse shadow-[0_0_8px_white]"></span>
-            Rapid Response in Mississauga
-          </div>
-        </div>
+        {/* Decorative Element: Glowing Bottom Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
       </section>
 
       {/* Value Proposition: High-Authority pillars with background pattern */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="relative py-32 overflow-hidden bg-white">
         {/* Technical Background Decor */}
         <div className="absolute inset-0 bg-slate-50/50 pointer-events-none"></div>
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#2563eb 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
@@ -72,7 +91,6 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {/* Pillar 1: Trust */}
             <div className="group relative bg-white p-10 rounded-[40px] border border-slate-100 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all duration-500 transform hover:-translate-y-3">
-              {/* Bottom Border Accent */}
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1.5 bg-blue-600 transition-all duration-500 group-hover:w-1/2 rounded-full mb-[-3px]"></div>
               
               <div className="relative w-20 h-20 mb-8">
