@@ -98,7 +98,9 @@ const Contact: React.FC = () => {
   const nextStep = () => {
     if (validateStep()) {
       if (step === 1 && isEmergency) {
-        setStep(3); // Skip date selection for emergencies
+        // Automatically set a placeholder for date/time when bypassing
+        setFormData(prev => ({ ...prev, date: 'ASAP', time: 'Priority Window' }));
+        setStep(3); 
       } else {
         setStep(prev => prev + 1);
       }
@@ -107,7 +109,7 @@ const Contact: React.FC = () => {
 
   const prevStep = () => {
     if (step === 3 && isEmergency) {
-      setStep(1); // Return to service selection for emergencies
+      setStep(1); 
     } else {
       setStep(prev => prev - 1);
     }
@@ -141,28 +143,36 @@ const Contact: React.FC = () => {
     { id: 'emergency', label: 'Emergency (No Heat)', icon: '🚨' },
   ];
 
+  // Calculate dynamic progress bar width
+  const getProgressWidth = () => {
+    if (isEmergency) {
+      return step === 1 ? '33%' : '100%';
+    }
+    return `${(step / 3) * 100}%`;
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">
-            {isEmergency && step === 3 ? 'Emergency Priority Submission' : 'Book Your Appointment'}
+            {isEmergency && step === 3 ? 'Priority Dispatch Required' : 'Secure Your Service Window'}
           </h1>
           <p className="text-gray-500 max-w-2xl mx-auto">
             {isEmergency && step === 3 
-              ? 'Emergency detected. Your request will be prioritized for the next available dispatch window.' 
-              : 'Select a time that works for you. Our TSSA-certified technicians are ready to serve the Mississauga area.'}
+              ? 'Critical HVAC failure detected. Enter your location details below for immediate response from our closest TSSA technician.' 
+              : 'Our Mississauga dispatch center is ready to help. Select your service type to begin.'}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Booking System Container */}
-          <div className="lg:col-span-2 bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-            {/* Progress Bar */}
+          <div className={`lg:col-span-2 bg-white rounded-3xl shadow-xl border overflow-hidden transition-all duration-300 ${isEmergency ? 'border-red-200' : 'border-gray-100'}`}>
+            {/* Dynamic Progress Bar */}
             <div className="bg-gray-100 h-2 flex">
               <div 
                 className={`h-full transition-all duration-500 ${isEmergency ? 'bg-red-600' : 'bg-blue-600'}`} 
-                style={{ width: `${(step / 3) * 100}%` }}
+                style={{ width: getProgressWidth() }}
               ></div>
             </div>
 
@@ -173,26 +183,26 @@ const Contact: React.FC = () => {
                     {isEmergency ? '🚨' : '✓'}
                   </div>
                   <h2 className="text-3xl font-black text-gray-900 mb-4">
-                    {isEmergency ? 'Request Prioritized!' : 'Appointment Confirmed!'}
+                    {isEmergency ? 'Emergency Dispatched!' : 'Appointment Confirmed!'}
                   </h2>
-                  <p className="text-gray-600 mb-8">
+                  <p className="text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
                     {isEmergency ? (
-                      <>Thank you, <span className="font-bold">{formData.name}</span>. Our GTA Emergency Dispatch has received your request and is locating the closest crew to <span className="text-red-600 font-bold">Priority Status</span>.</>
+                      <>Your <span className="text-red-600 font-bold uppercase">Priority Level 1</span> request has been broadcasted to our active crews in {recentEvents[0].location}. A technician will contact you within minutes.</>
                     ) : (
-                      <>Thank you, <span className="font-bold">{formData.name}</span>. Your {formData.service} visit is scheduled for <span className="font-bold text-blue-600">{formData.date} at {formData.time}</span>.</>
+                      <>Thank you, <span className="font-bold">{formData.name}</span>. Your {formData.service} appointment is confirmed for <span className="font-bold text-blue-600">{formData.date}</span>.</>
                     )}
                   </p>
                   <div className={`p-6 rounded-2xl border max-w-md mx-auto mb-8 ${isEmergency ? 'bg-red-50 border-red-100' : 'bg-blue-50 border-blue-100'}`}>
                     <p className={`text-sm font-medium ${isEmergency ? 'text-red-800' : 'text-blue-800'}`}>
-                      We've sent a confirmation SMS to {formData.phone}. 
-                      {isEmergency && " Stand by your phone for a call from our technician."}
+                      SMS confirmation sent to {formData.phone}. 
+                      {isEmergency && " Keep your line clear for the arriving technician."}
                     </p>
                   </div>
                   <button 
                     onClick={() => { setIsSuccess(false); setStep(1); setFormData({ name: '', phone: '', service: '', date: '', time: '', message: '' }); }}
-                    className={`${isEmergency ? 'text-red-600' : 'text-blue-600'} font-bold hover:underline`}
+                    className={`${isEmergency ? 'text-red-600 hover:text-red-700' : 'text-blue-600 hover:text-blue-700'} font-bold hover:underline`}
                   >
-                    Return to Start
+                    Start new request
                   </button>
                 </div>
               ) : (
@@ -202,7 +212,7 @@ const Contact: React.FC = () => {
                     <div className="animate-in fade-in slide-in-from-right-4">
                       <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
                         <span className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm mr-3">1</span>
-                        What do you need help with?
+                        What service do you require?
                       </h2>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {services.map((s) => (
@@ -210,12 +220,15 @@ const Contact: React.FC = () => {
                             key={s.id}
                             type="button"
                             onClick={() => setFormData({ ...formData, service: s.label })}
-                            className={`flex items-center p-6 rounded-2xl border-2 transition-all text-left group ${
+                            className={`flex items-center p-6 rounded-2xl border-2 transition-all text-left group relative overflow-hidden ${
                               formData.service === s.label 
                                 ? (s.id === 'emergency' ? 'border-red-600 bg-red-50' : 'border-blue-600 bg-blue-50') 
                                 : 'border-gray-100 hover:border-blue-200 bg-gray-50'
                             }`}
                           >
+                            {s.id === 'emergency' && (
+                              <div className="absolute top-0 right-0 bg-red-600 text-[8px] text-white px-3 py-1 font-black uppercase tracking-widest rounded-bl-lg">Fast Track</div>
+                            )}
                             <span className="text-3xl mr-4 group-hover:scale-110 transition-transform">{s.icon}</span>
                             <span className={`font-bold ${formData.service === s.label ? (s.id === 'emergency' ? 'text-red-900' : 'text-blue-900') : 'text-gray-700'}`}>
                               {s.label}
@@ -228,25 +241,24 @@ const Contact: React.FC = () => {
                         <button 
                           type="button" 
                           onClick={nextStep}
-                          className={`${isEmergency ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'} text-white px-10 py-4 rounded-xl font-bold shadow-lg transition-all flex items-center`}
+                          className={`${isEmergency ? 'bg-red-600 hover:bg-red-700 animate-pulse' : 'bg-blue-600 hover:bg-blue-700'} text-white px-10 py-4 rounded-xl font-bold shadow-lg transition-all flex items-center`}
                         >
-                          {isEmergency ? 'Confirm Emergency' : 'Next Step'}
+                          {isEmergency ? 'Proceed to Priority Contact' : 'Select Arrival Window'}
                           <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7-7 7" /></svg>
                         </button>
                       </div>
                     </div>
                   )}
 
-                  {/* Step 2: Date & Time (Bypassed if isEmergency) */}
+                  {/* Step 2: Date & Time (Skipped for emergencies) */}
                   {step === 2 && (
                     <div className="animate-in fade-in slide-in-from-right-4">
                       <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
                         <span className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm mr-3">2</span>
-                        Select Date & Time
+                        Choose Arrival Date
                       </h2>
                       
                       <div className="mb-8">
-                        <label className="block text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Available Days</label>
                         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                           {availableDays.map((d) => (
                             <button
@@ -268,7 +280,7 @@ const Contact: React.FC = () => {
 
                       {formData.date && (
                         <div className="animate-in fade-in duration-500">
-                          <label className="block text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Select Arrival Window</label>
+                          <label className="block text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Select Time Window</label>
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             {timeSlots.map((t) => (
                               <button
@@ -297,7 +309,7 @@ const Contact: React.FC = () => {
                           onClick={nextStep}
                           className="bg-blue-600 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-all"
                         >
-                          Next Step
+                          Next: Contact Info
                         </button>
                       </div>
                     </div>
@@ -310,11 +322,19 @@ const Contact: React.FC = () => {
                         <span className={`w-8 h-8 text-white rounded-full flex items-center justify-center text-sm mr-3 ${isEmergency ? 'bg-red-600' : 'bg-blue-600'}`}>
                           {isEmergency ? '!' : '3'}
                         </span>
-                        Confirm Your Information
+                        {isEmergency ? 'Dispatch Details' : 'Final Step: Contact Information'}
                       </h2>
+                      
+                      {isEmergency && (
+                        <div className="bg-red-50 border border-red-100 p-4 rounded-xl mb-8 flex items-center space-x-3">
+                           <span className="text-xl">🚨</span>
+                           <p className="text-xs text-red-800 font-medium italic">Emergency mode active. Our closest Mississauga crew is standing by for your submission.</p>
+                        </div>
+                      )}
+
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                          <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                          <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">Primary Contact Name</label>
                           <input 
                             id="name"
                             type="text" 
@@ -323,11 +343,11 @@ const Contact: React.FC = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                             className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none" 
-                            placeholder="Your Name" 
+                            placeholder="Full Name" 
                           />
                         </div>
                         <div>
-                          <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
+                          <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-2">Mobile Phone (for SMS Updates)</label>
                           <input 
                             id="phone"
                             type="tel" 
@@ -338,35 +358,37 @@ const Contact: React.FC = () => {
                             className={`w-full p-4 bg-gray-50 border rounded-xl focus:ring-2 outline-none ${
                               errors.phone ? 'border-red-500 focus:ring-red-200' : 'border-gray-200 focus:ring-blue-600'
                             }`} 
-                            placeholder="(416) 410-1744" 
+                            placeholder="(416) 000-0000" 
                           />
                           {errors.phone && <p className="mt-2 text-xs font-bold text-red-500">{errors.phone}</p>}
                         </div>
                       </div>
+                      
                       <div>
-                        <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-2">Notes for Technician (Optional)</label>
+                        <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-2">Brief Problem Description</label>
                         <textarea 
                           id="message"
                           name="message"
                           value={formData.message}
                           onChange={handleInputChange}
                           className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl h-24 focus:ring-2 focus:ring-blue-600 outline-none resize-none" 
-                          placeholder={isEmergency ? "Please describe the symptoms (e.g., smell of gas, cold air blowing)..." : "Tell us more about the issue..."}
+                          placeholder={isEmergency ? "e.g., Furnace is making loud noise and blowing cold air..." : "Additional details..."}
                         ></textarea>
                       </div>
 
-                      <div className={`mt-8 p-6 rounded-2xl border flex items-start space-x-4 ${isEmergency ? 'bg-red-50 border-red-100' : 'bg-blue-50 border-blue-100'}`}>
-                        <div className="text-2xl">{isEmergency ? '🚨' : '📅'}</div>
-                        <div>
-                          <p className={`text-sm font-bold ${isEmergency ? 'text-red-900' : 'text-blue-900'}`}>Summary of Booking</p>
-                          <p className={`text-xs ${isEmergency ? 'text-red-700' : 'text-blue-700'}`}>
-                            {isEmergency ? (
-                              <span className="font-bold">IMMEDIATE EMERGENCY DISPATCH: {formData.service}</span>
-                            ) : (
-                              <>{formData.service} on {formData.date} during the {formData.time} window.</>
-                            )}
-                          </p>
+                      <div className={`mt-8 p-6 rounded-2xl border flex items-center justify-between ${isEmergency ? 'bg-red-50 border-red-100' : 'bg-blue-50 border-blue-100'}`}>
+                        <div className="flex items-center space-x-4">
+                          <div className="text-2xl">{isEmergency ? '⚡' : '📅'}</div>
+                          <div>
+                            <p className={`text-sm font-bold ${isEmergency ? 'text-red-900' : 'text-blue-900'}`}>
+                              {isEmergency ? 'Priority Dispatch' : 'Scheduled Visit'}
+                            </p>
+                            <p className={`text-[10px] ${isEmergency ? 'text-red-700' : 'text-blue-700'} uppercase font-black`}>
+                              {isEmergency ? 'ETA: ASAP (Closest available crew)' : `${formData.date} - ${formData.time}`}
+                            </p>
+                          </div>
                         </div>
+                        {isEmergency && <div className="w-2 h-2 bg-red-600 rounded-full animate-ping"></div>}
                       </div>
 
                       <div className="mt-12 flex justify-between items-center">
@@ -376,11 +398,11 @@ const Contact: React.FC = () => {
                           disabled={isSubmitting}
                           className={`px-12 py-4 rounded-xl font-black shadow-2xl transition-all ${
                             isEmergency 
-                              ? 'bg-red-600 text-white hover:bg-red-700 animate-pulse' 
+                              ? 'bg-red-600 text-white hover:bg-red-700 active:scale-95' 
                               : 'bg-blue-600 text-white hover:bg-blue-700'
                           } ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
-                          {isSubmitting ? (isEmergency ? 'Dispatching...' : 'Securing Slot...') : (isEmergency ? 'DISPATCH EMERGENCY CREW' : 'Confirm Appointment')}
+                          {isSubmitting ? 'Sending Request...' : (isEmergency ? 'DISPATCH PRIORITY CREW' : 'Book Appointment')}
                         </button>
                       </div>
                     </div>
